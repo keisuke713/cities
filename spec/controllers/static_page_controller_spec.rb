@@ -7,9 +7,9 @@ RSpec.describe StaticPageController, type: :controller do
 
     it "returns http success" do
       get :home
-      expect(response).to have_http_status 200
+      expect(response.status).to eq 200
       assert_select "title", "Cities"
+      # should have_link 'Sign up', href: '#'
     end
   end
-
 end
