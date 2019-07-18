@@ -28,7 +28,7 @@ RSpec.describe UsersController, type: :controller do
         end.to change(User, :count).by(1)
       end
 
-      it "reidrect user page" do
+      it "reidrect top page" do
         post :create, params: { user: user_params }
         expect(response).to redirect_to root_path
       end
