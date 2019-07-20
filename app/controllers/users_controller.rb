@@ -9,10 +9,14 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "Welcome to The Cities!!!!"
       session[:user_id] = @user.id
-      redirect_to root_url
+      redirect_to @user
     else
       render 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   private

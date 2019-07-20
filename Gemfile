@@ -41,6 +41,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~>3.6.0'
+  gem 'factory_bot_rails', '~>4.10.0'
 end
 
 group :development do
@@ -66,3 +67,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'coffee-script-source', '1.8.0'
 gem 'bcrypt', '3.1.12'
+gem 'devise'
+gem 'rails-controller-testing'

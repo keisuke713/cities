@@ -28,6 +28,6 @@ module SessionsHelper
   end
 
   def store_location
-    session[:previous_url] = request.fullpath
+    session[:previous_url] = request.referer
   end
 end

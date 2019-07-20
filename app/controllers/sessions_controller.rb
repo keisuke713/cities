@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       log_in @user
       flash[:success] = success_login_msg
-      # redirect_to root_url
       redirect_to session[:previous_url]
     else
       flash[:danger] = failure_login_msg
