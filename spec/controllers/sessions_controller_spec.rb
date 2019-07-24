@@ -11,17 +11,18 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "POST #create" do
     context 'parameter is reasonable' do
-      session_params = {
+      let(:session_params) {{
         email: 'nebakei.tkb713@gmail.com',
         password: :Baseball713
-      }
+      }}
+
       it "returns http success" do
-        post :create, params: { session: { email: 'nebakei.tkb713@gmail.com', password: 'Baseball713' }}
+        post :create, params: { session: session_params }
         expect(response.status).to eq 200
       end
 
       it "redirect top page" do
-        post :create, params: { session: { email: 'nebakei.tkb713@gmail.com', password: 'Baseball713' }}
+        post :create, params: { session: session_params }
         expect(response).to be_successful
       end
     end
