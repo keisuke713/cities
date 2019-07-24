@@ -8,6 +8,7 @@ class User < ApplicationRecord
     message: 'the first letter must be upcase' }
 
   mount_uploader :image, ImageUploader
+  include SessionsHelper
 
   def text_slice
     intro.length > 25 ? "#{intro.slice(0..24)}..." : intro

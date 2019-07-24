@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user?, only: :delete
 
   def index
     @users = User.paginate(page: params[:page])
@@ -42,8 +43,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # user.destroy
-    # redirect_to root_path
+    user.destroy
+    flash[:success] = 'success!'
+    redirect_to users_path
   end
 
   private
@@ -55,6 +57,7 @@ class UsersController < ApplicationController
   def logged_in_user
     unless logged_in?
       flash[:danger] = "Please log in"
+      current_store_location
       redirect_to login_path
     end
   end
@@ -68,5 +71,9 @@ class UsersController < ApplicationController
 
   def current_user?
     current_user == user
+  end
+
+  def admin_user?
+    redirect_to root_path unless current_user.admin?
   end
 end

@@ -173,24 +173,28 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "DELETE #destory" do
-    # let(:user) {
-    #   FactoryBot.create(:user)
-    # }
-    #
-    # before do
-    #   log_in user
-    # end
-    #
-    # it "delete user" do
-    #   expect do
-    #     delete :destroy, params: { id: user.id }
-    #   end.to change(User, :count).by(-1)
-    # end
-    #
-    # it "redirect top page" do
-    #   delete :destory, params: { id: user.id }
-    #   expect(response).to redirect_to root_path
-    # end
+    let!(:admin_user) {
+      FactoryBot.create(:admin_user)
+    }
+
+    let!(:user) {
+      FactoryBot.create(:user)
+    }
+
+    before do
+      log_in admin_user
+    end
+
+    it "delete user" do
+      expect do
+        delete :destroy, params: { id: user.id }
+      end.to change(User, :count).by(-1)
+    end
+
+    it "redirect users page" do
+      delete :destroy, params: { id: user.id }
+      expect(response).to redirect_to users_path
+    end
   end
 
 end
