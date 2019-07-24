@@ -1,6 +1,14 @@
 <%= provide(:title, @user.name) %>
 <div class="container">
-  <h1><%= @user.name %>のページ</h1>
+  <div class="profiles">
+    <div class="image">
+      <%= image user %>
+    </div>
+    <div class="name">
+      <h1><%= @user.name %></h1>
+      <p class="break"><%= @user.intro %></p>
+    </div>
+  </div>
   <p><%= edit_user_link @user %></p>
   <h2>全ての投稿</h2>
 </div>

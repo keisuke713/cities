@@ -10,17 +10,17 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:session][:password])
       log_in @user
-      flash[:success] = success_login_msg
+      flash[:success] = 'Success log in!'
       redirect_to session[:previous_url]
     else
-      flash[:danger] = failure_login_msg
+      flash[:danger] = 'Not correct email or password'
       render 'new'
     end
   end
 
   def destroy
     log_out
-    flash[:success] = success_log_out_msg
+    flash[:success] = 'Success log out!'
     redirect_to root_url
   end
 end

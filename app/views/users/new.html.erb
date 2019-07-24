@@ -3,37 +3,8 @@
   <h1>Sign Up</h1>
   <div class="row">
     <div class="col-md-6">
-      <%= form_for @user, url: signup_path do |f| %>
         <%= render 'shared/error_messages', object: @user %>
-        <div class="form">
-          <%= f.label :name %>
-          <%= f.text_field :name, size: 40 %>
-        </div>
-
-        <div class="form">
-          <%= f.label :email %>
-          <%= f.text_field :email, size: 40 %>
-        </div>
-
-        <div class="form">
-          <%= f.label :age %>
-          <%= f.text_field :age, size: 40 %>
-        </div>
-
-        <div class="form">
-          <%= f.label :password %>
-          <%= f.password_field :password, size: 40 %>
-        </div>
-
-        <div class="form">
-          <%= f.label :password_confirmation, "Confirmation" %>
-          <%= f.password_field :password_confirmation, size: 40 %>
-        </div>
-
-        <div class="form">
-          <%= f.submit "Create my account", class: "btn" %>
-        </div>
-      <% end %>
+        <%= render 'shared/user_form', path: signup_path, button: "Create my account" %>
     </div>
   </div>
 </div>

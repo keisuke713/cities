@@ -26,13 +26,8 @@ RSpec.describe User, type: :model do
     expect(duplicate_user).to be_invalid
   end
 
-  it "age is blank" do
-    user.age = ''
-    expect(user).to be_invalid
-  end
-
-  it "age is more than 150" do
-    user.age = 151
+  it "intro is blank" do
+    user.intro = ''
     expect(user).to be_invalid
   end
 

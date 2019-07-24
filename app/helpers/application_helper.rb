@@ -15,5 +15,7 @@ module ApplicationHelper
     render 'shared/flash'
   end
 
-  
+  def shorted_text(object)
+    object.text_slice
+  end
 end

@@ -1,16 +1,4 @@
 module SessionsHelper
-  def success_login_msg
-    'Success log in!'
-  end
-
-  def failure_login_msg
-    'Not correct email or password'
-  end
-
-  def success_log_out_msg
-    'Success log out!'
-  end
-
   def log_in(user)
     session[:user_id] = user.id
   end
