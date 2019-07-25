@@ -1,0 +1,18 @@
+= provide(:title, 'Log in')
+.container
+  h1
+    | Log in
+  .row
+    .col-md-6
+      = form_for :session, url: login_path do |f|
+        .form
+          = f.label :email
+          = f.text_field :email, size: 40
+        .form
+          = f.label :password
+          = f.password_field :password, size: 40
+        .form
+          = f.submit "Log in", class: "btn"
+        p
+          | NewUser? 
+          = link_to 'Sign up now!!', signup_path

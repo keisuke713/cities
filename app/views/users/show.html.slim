@@ -1,0 +1,14 @@
+= provide(:title, @user.name)
+.container
+  .profiles
+    .image
+      = image user
+    .name
+      h1
+        = @user.name
+      p.break
+        = @user.intro
+  p
+    = edit_user_link @user
+  h2
+    | 全ての投稿

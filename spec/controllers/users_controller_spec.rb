@@ -25,8 +25,8 @@ RSpec.describe UsersController, type: :controller do
 
     it "assign all users" do
       get :index
-      # expect(assigns(:users)).to include user
-      expect(assigns(:users)).to match_array [user]
+      expect(assigns(:users)).to include user
+      # expect(assigns(:users)).to match_array [user]
     end
 
     it "returns a 200 response" do

@@ -1,0 +1,18 @@
+= form_for @user, url: path do |f|
+  .form
+    = f.label :name
+    = f.text_field :name, size: 40
+  .form
+    = f.label :email
+    = f.text_field :email, size: 40
+  .form
+    = f.label :intro
+    = f.text_area :intro, size: "40*100"
+  .form
+    = f.label :password
+    = f.password_field :password, size: 40
+  .form
+    = f.label :password_confirmation, "Confirmation"
+    = f.password_field :password_confirmation, size: 40
+  .form
+    = f.submit button, class: "btn"
