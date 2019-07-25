@@ -1,0 +1,8 @@
+= provide(:title, 'Sign up')
+.container
+  h1
+    | Sign Up
+  .row
+    .col-md-6
+      = render 'shared/error_messages', object: @user
+      = render 'shared/user_form', path: signup_path, button: "Create my account"
