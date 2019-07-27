@@ -12,3 +12,11 @@
     = edit_user_link @user
   h2
     | 全ての投稿
+  / .posts
+    - @posts.each do |post|
+      .post
+        p = post.content
+        - if post.image?
+          p = image_tag post.image.thumb.url
+        - end
+        p = post.created_at
