@@ -1,7 +1,6 @@
 FactoryBot.define do
-  factory :post do
-    content "MyText"
-    user nil
-    image "MyString"
+  factory :post, class: Post do
+    content 'a' * 140
+    image nil
   end
 end
