@@ -13,6 +13,14 @@ RSpec.describe Post, type: :model do
     user.posts.build(valid_attributes)
   }
 
+  let!(:post1) {
+    user.posts.create(valid_attributes)
+  }
+
+  let!(:post2) {
+    user.posts.create(valid_attributes)
+  }
+
   it 'is valid with content, image, user_id' do
     expect(post).to be_valid
   end
@@ -36,5 +44,6 @@ RSpec.describe Post, type: :model do
   end
 
   it 'is descending order' do
+    expect(Post.first.id).to eq 2
   end
 end
