@@ -35,7 +35,7 @@ RSpec.describe PostsController, type: :controller do
 
       it "redirect user page" do
         post :create, params: { user_id: user.id, post: valid_attributes }
-        expect(response).to redirect_to user_path
+        expect(response).to redirect_to user
       end
     end
 
