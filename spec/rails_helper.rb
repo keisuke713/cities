@@ -61,6 +61,7 @@ RSpec.configure do |config|
   # config.extend ControllerMacros, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include SessionsHelper
+  # config.include SpecTestHelper, type: feature
   [:controller, :view, :request].each do |type|
     config.include ::Rails::Controller::Testing::TestProcess, type: type
     config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
@@ -79,3 +80,5 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+
+require 'capybara/rspec'
