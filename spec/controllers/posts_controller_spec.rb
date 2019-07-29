@@ -13,6 +13,27 @@ RSpec.describe PostsController, type: :controller do
     FactoryBot.attributes_for(:post)
   }
 
+  describe "GET #index" do
+    let(:post) {
+      FactoryBot.create(:post)
+    }
+
+    it "returns http success" do
+      get :index
+      expect(response).to be_successful
+    end
+
+    it "assign all posts" do
+      get :index
+      expect(assigns(:psots)).to include post
+    end
+
+    it "returns a 200 status" do
+      get :index
+      expect(response.status).to eq 200
+    end
+  end
+
   describe "GET #new" do
     it "returns http success" do
       get :new, params: { user_id: user.id }
@@ -54,6 +75,26 @@ RSpec.describe PostsController, type: :controller do
         post :create, params: { user_id: user.id, post: invalid_attributes }
         expect(response).to render_template 'new'
       end
+    end
+  end
+
+  xdescribe "GET #show" do
+    let(:post) {
+      FactoryBot.create(:post, user_id: user.id)
+    }
+    it "returns htttp success" do
+      get :show, params: { id: post.id }
+      expect(response).to be_successful
+    end
+
+    it "assigned the post" do
+      get :show, params: { id:post.id }
+      expect(assigns(:post)).to eq post
+    end
+
+    it "returns a 200 response" do
+      get :show, params: { id: post.id }
+      expect(response.status).to eq 200
     end
   end
 end
