@@ -9,10 +9,6 @@ RSpec.describe PostsController, type: :controller do
     log_in user
   end
 
-  let(:valid_attributes) {
-    FactoryBot.attributes_for(:post)
-  }
-
   xdescribe "GET #index" do
     let(:post) {
       FactoryBot.create(:post)
@@ -35,19 +31,27 @@ RSpec.describe PostsController, type: :controller do
   end
 
   describe "GET #new" do
+    let(:user_params) {
+      { user_id: user.id }
+    }
+
     it "returns http success" do
-      get :new, params: { user_id: user.id }
+      get :new, params: user_params
       expect(response).to be_successful
     end
 
     it "returns a 200 response" do
-      get :new, params: { user_id: user.id }
+      get :new, params: user_params
       expect(response.status).to eq 200
     end
   end
 
   describe "POST #create" do
     context "parameter is reasonable" do
+      let(:valid_attributes) {
+        FactoryBot.attributes_for(:post)
+      }
+      
       it "is registered" do
         expect {
           post :create, params: { user_id: user.id, post: valid_attributes }
@@ -82,18 +86,23 @@ RSpec.describe PostsController, type: :controller do
     let(:post) {
       FactoryBot.create(:post, user_id: user.id)
     }
+
+    let(:post_params) {
+      { id: post.id }
+    }
+
     it "returns htttp success" do
-      get :show, params: { id: post.id }
+      get :show, params: post_params
       expect(response).to be_successful
     end
 
     it "assigned the post" do
-      get :show, params: { id:post.id }
+      get :show, params: post_params
       expect(assigns(:post)).to eq post
     end
 
     it "returns a 200 response" do
-      get :show, params: { id: post.id }
+      get :show, params: post_params
       expect(response.status).to eq 200
     end
   end
