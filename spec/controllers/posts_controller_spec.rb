@@ -13,7 +13,7 @@ RSpec.describe PostsController, type: :controller do
     FactoryBot.attributes_for(:post)
   }
 
-  describe "GET #index" do
+  xdescribe "GET #index" do
     let(:post) {
       FactoryBot.create(:post)
     }
@@ -78,7 +78,7 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
-  xdescribe "GET #show" do
+  describe "GET #show" do
     let(:post) {
       FactoryBot.create(:post, user_id: user.id)
     }

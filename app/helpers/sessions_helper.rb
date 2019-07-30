@@ -7,6 +7,14 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in"
+      current_store_location
+      redirect_to login_path
+    end
+  end
+
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end

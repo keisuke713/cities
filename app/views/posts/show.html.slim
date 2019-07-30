@@ -1,0 +1,12 @@
+= provide(:title, :Post)
+.container
+  .row
+    .content
+      p
+        | 投稿者
+        = link_to user.name, user
+      = image @post
+      p = @post.content
+      p = @post.created_at
+      p.contact = link_to '返信する', '#'
+      p.contact = link_to 'ブックマーク', '#'
