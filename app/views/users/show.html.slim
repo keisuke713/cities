@@ -12,3 +12,12 @@
     = edit_user_link @user
   h2
     | 全ての投稿
+  .posts
+    - @posts.each do |post|
+      .post
+        .post-content
+          = image post
+        .post-content
+          p.break = shorted_text post
+          p = post.created_at
+          = link_to '詳細をみる', post

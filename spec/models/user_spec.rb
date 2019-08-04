@@ -49,4 +49,10 @@ RSpec.describe User, type: :model do
   it "can save" do
     expect(user).to be_truthy
   end
+
+  it "was deleted related post when user was deleted" do
+    user.save
+    user.posts.create(content: 'confirm_destroy')
+    expect{ user.destroy }.to change{ Post.count }.by(-1)
+  end
 end
