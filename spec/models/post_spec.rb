@@ -21,6 +21,10 @@ RSpec.describe Post, type: :model do
     user.posts.create(valid_attributes)
   }
 
+  let(:comment_attributes) {
+    FactoryBot.attributes_for(:comment)
+  }
+
   it 'is valid with content, image, user_id' do
     expect(post).to be_valid
   end
@@ -45,5 +49,13 @@ RSpec.describe Post, type: :model do
 
   it 'is descending order' do
     expect(Post.first.id).to eq 2
+  end
+
+  it 'ia deleted related comment when post is deleted' do
+    @admin_user = FactoryBot.create(:admin_user)
+    @comment = @admin_user.comments.build(comment_attributes)
+    @comment.post = post
+    @comment.save
+    expect{ post.destroy }.to change{ Comment.count }.by(-1)
   end
 end

@@ -51,7 +51,7 @@ RSpec.describe PostsController, type: :controller do
       let(:valid_attributes) {
         FactoryBot.attributes_for(:post)
       }
-      
+
       it "is registered" do
         expect {
           post :create, params: { user_id: user.id, post: valid_attributes }
