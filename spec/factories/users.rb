@@ -9,7 +9,7 @@ FactoryBot.define do
 
   factory :user, class: User do
     name 'Bob'
-    email 'test@gmail.com'
+    email 'test1@gmail.com'
     intro 'rubyなう'
     password 'Testtesttest'
   end

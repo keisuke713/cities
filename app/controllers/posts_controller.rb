@@ -11,7 +11,6 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-
     if @post.save
       flash[:success] = 'succeed in posting'
       redirect_to current_user

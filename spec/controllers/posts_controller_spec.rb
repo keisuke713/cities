@@ -48,7 +48,7 @@ RSpec.describe PostsController, type: :controller do
 
   describe "POST #create" do
     context "parameter is reasonable" do
-      let(:valid_attributes) {
+      let!(:valid_attributes) {
         FactoryBot.attributes_for(:post)
       }
 
