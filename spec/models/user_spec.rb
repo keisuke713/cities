@@ -6,12 +6,12 @@ RSpec.describe User, type: :model do
     FactoryBot.build(:user)
   }
 
-  let!(:post_attributes) {
+  let(:post_attributes) {
     FactoryBot.attributes_for(:post)
   }
 
-  let!(:comment_attributes) {
-    FactoryBot.attributes_for(:comment)
+  let(:comment_attributes) {
+    FactoryBot.attributes_for(:comment).merge(post: @post)
   }
 
   it "is valid with name, email and age" do
@@ -68,7 +68,6 @@ RSpec.describe User, type: :model do
     @admin_user = FactoryBot.create(:admin_user)
     @post = @admin_user.posts.create(post_attributes)
     @comment = user.comments.build(comment_attributes)
-    @comment.post = @post
     @comment.save
     expect{ user.destroy }.to change{ Comment.count}.by(-1)
   end
