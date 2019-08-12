@@ -21,27 +21,6 @@ RSpec.describe CommentsController, type: :controller do
     { post_id: user_post.id }
   }
 
-  xdescribe "GET #index" do
-    let(:comment) {
-      user.comments.create(valid_attributes, post: user_post)
-    }
-
-    it "returns a 200 response" do
-      get :index, params: post_params
-      expect(response.status).to eq200
-    end
-
-    it "assigned the post" do
-      get :index, params: post_params
-      expect(assign(:comments)).to include comment
-    end
-
-    it "render index" do
-      get :index, params: post_params
-      expect(response).to render_template 'index'
-    end
-  end
-
   describe "GET #new" do
     it "returns a 200 response" do
       get :new, params: post_params

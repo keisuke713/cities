@@ -91,6 +91,12 @@ RSpec.describe PostsController, type: :controller do
       { id: post.id }
     }
 
+    before do
+      @comment = user.comments.build(FactoryBot.attributes_for(:comment))
+      @comment.post = post
+      @comment.save
+    end
+
     it "returns htttp success" do
       get :show, params: post_params
       expect(response).to be_successful
@@ -99,6 +105,11 @@ RSpec.describe PostsController, type: :controller do
     it "assigned the post" do
       get :show, params: post_params
       expect(assigns(:post)).to eq post
+    end
+
+    it "assigned comments" do
+      get :show, params: post_params
+      expect(assigns(:comments)).to include @comment
     end
 
     it "returns a 200 response" do
