@@ -4,9 +4,23 @@
     .content
       p
         | 投稿者
-        = link_to @post.user.name
+        = link_to @post.user.name, @post.user
       = image @post
       p = @post.content
-      p = @post.created_at
-      p.contact = link_to '返信する', '#'
+      p = l @post.created_at
+      p.contact = link_to 'コメントする', new_post_comment_url(@post.id)
       p.contact = link_to 'ブックマーク', '#'
+
+    - if @comments.empty?
+      h3 コメントはありません
+    - else
+      h3
+        | コメント一覧
+        - @comments.each do |comment|
+          .comment
+              p
+                | 投稿者
+                = link_to comment.user.name, comment.user
+              p = comment.content
+              p = l comment.created_at
+              p = link_to 'スレッドを開始する', '#'

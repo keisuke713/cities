@@ -48,10 +48,10 @@ RSpec.describe PostsController, type: :controller do
 
   describe "POST #create" do
     context "parameter is reasonable" do
-      let(:valid_attributes) {
+      let!(:valid_attributes) {
         FactoryBot.attributes_for(:post)
       }
-      
+
       it "is registered" do
         expect {
           post :create, params: { user_id: user.id, post: valid_attributes }
@@ -99,6 +99,14 @@ RSpec.describe PostsController, type: :controller do
     it "assigned the post" do
       get :show, params: post_params
       expect(assigns(:post)).to eq post
+    end
+
+    it "assigned comments" do
+      comment = user.comments.build(FactoryBot.attributes_for(:comment))
+      comment.post = post
+      comment.save
+      get :show, params: post_params
+      expect(assigns(:comments)).to include comment
     end
 
     it "returns a 200 response" do

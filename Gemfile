@@ -48,6 +48,9 @@ group :development, :test do
   gem 'rspec-rails', '~>3.6.0'
   gem 'factory_bot_rails', '~>4.10.0'
   gem 'database_cleaner'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-doc'
 end
 
 group :development do

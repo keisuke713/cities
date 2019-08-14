@@ -2,8 +2,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  let(:user) {
+  let!(:user) {
     FactoryBot.build(:user)
+  }
+
+  let(:post_attributes) {
+    FactoryBot.attributes_for(:post)
+  }
+
+  let(:comment_attributes) {
+    FactoryBot.attributes_for(:comment)
   }
 
   it "is valid with name, email and age" do
@@ -50,9 +58,18 @@ RSpec.describe User, type: :model do
     expect(user).to be_truthy
   end
 
-  it "was deleted related post when user was deleted" do
+  it "is deleted related post when user is deleted" do
     user.save
-    user.posts.create(content: 'confirm_destroy')
+    user.posts.create(post_attributes)
     expect{ user.destroy }.to change{ Post.count }.by(-1)
+  end
+
+  it "is deleted related comment when user is deleted" do
+    admin_user = FactoryBot.create(:admin_user)
+    post = admin_user.posts.create(post_attributes)
+    comment = user.comments.build(comment_attributes)
+    comment.post = post
+    comment.save
+    expect{ user.destroy }.to change{ Comment.count}.by(-1)
   end
 end

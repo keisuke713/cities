@@ -1,16 +1,16 @@
 FactoryBot.define do
   factory :admin_user, class: User do
-    name 'Keisuke'
-    email 'nebakei.tkb713@gmail.com'
+    name 'Alice'
+    email 'test@gmail.com'
     intro 'rubyなう'
-    password 'Baseball713'
+    password 'Testtesttest'
     admin true
   end
 
   factory :user, class: User do
-    name 'Keisuke'
-    email 'nebakei.tkb0713@gmail.com'
+    name 'Bob'
+    email 'test1@gmail.com'
     intro 'rubyなう'
-    password 'Baseball713'
+    password 'Testtesttest'
   end
 end
