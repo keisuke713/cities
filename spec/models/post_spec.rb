@@ -52,9 +52,9 @@ RSpec.describe Post, type: :model do
   end
 
   it 'ia deleted related comment when post is deleted' do
-    @admin_user = FactoryBot.create(:admin_user)
-    @comment = @admin_user.comments.build(comment_attributes)
-    @comment.save
+    admin_user = FactoryBot.create(:admin_user)
+    comment = admin_user.comments.build(comment_attributes)
+    comment.save
     expect{ post.destroy }.to change{ Comment.count }.by(-1)
   end
 end

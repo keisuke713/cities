@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
   }
 
   let(:comment_attributes) {
-    FactoryBot.attributes_for(:comment).merge(post: @post)
+    FactoryBot.attributes_for(:comment)
   }
 
   it "is valid with name, email and age" do
@@ -65,10 +65,11 @@ RSpec.describe User, type: :model do
   end
 
   it "is deleted related comment when user is deleted" do
-    @admin_user = FactoryBot.create(:admin_user)
-    @post = @admin_user.posts.create(post_attributes)
-    @comment = user.comments.build(comment_attributes)
-    @comment.save
+    admin_user = FactoryBot.create(:admin_user)
+    post = admin_user.posts.create(post_attributes)
+    comment = user.comments.build(comment_attributes)
+    comment.post = post
+    comment.save
     expect{ user.destroy }.to change{ Comment.count}.by(-1)
   end
 end
