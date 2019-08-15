@@ -38,4 +38,14 @@ RSpec.describe Comment, type: :model do
     comment.content = 'a' * 141
     expect(comment).to be_invalid
   end
+
+   it "is deleted replies when original_comment is deleted" do
+     comment.post = post
+     comment.save
+     reply = user.comments.build(valid_attributes)
+     reply.post = post
+     reply.comment_id = comment.id
+     reply.save
+     expect { comment.destroy }.to change{ Comment.count }.by(-2)
+   end
 end
