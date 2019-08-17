@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :reply do
-    user nil
-    comment nil
+    content 'a' * 140
+    user
+    comment
   end
 end
