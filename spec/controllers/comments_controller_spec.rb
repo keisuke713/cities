@@ -68,4 +68,41 @@ RSpec.describe CommentsController, type: :controller do
       end
     end
   end
+
+  describe "GET #show" do
+    let(:comment) {
+      comment = user.comments.build(valid_attributes)
+      comment.post = user_post
+      comment.save
+      comment
+    }
+
+    let(:comment_params) {
+      { comment_id: comment.id }
+    }
+
+    it "returns http success" do
+      get :show, params: comment_params
+      expect(response.status).to eq 200
+    end
+
+    it "assigns comment" do
+      get :show, params: comment_params
+      expect(assigns(:comment)).to eq comment
+    end
+
+    it "assigns replies" do
+      reply = user.replies.build(FactoryBot.attributes_for(:reply))
+      reply.comment = comment
+      reply.save
+      get :show, params: comment_params
+      expect(assigns(:replies)).to include reply
+    end
+
+    it "render show" do
+      get :show, params: comment_params
+      expect(response).to render_template 'show'
+    end
+  end
+
 end
