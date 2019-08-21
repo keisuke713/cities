@@ -78,7 +78,7 @@ RSpec.describe CommentsController, type: :controller do
     }
 
     let(:comment_params) {
-      { comment_id: comment.id }
+      { id: comment.id }
     }
 
     it "returns http success" do

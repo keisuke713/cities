@@ -1,8 +1,7 @@
 class RepliesController < ApplicationController
-  def index
-  end
-
   def new
+    @comment = Comment.find(params[:id])
+    @reply = Reply.new
   end
 
   def create

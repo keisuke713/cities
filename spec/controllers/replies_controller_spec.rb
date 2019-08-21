@@ -27,7 +27,7 @@ RSpec.describe RepliesController, type: :controller do
   }
 
   let(:comment_params) {
-    { comment_id: comment.id }
+    { id: comment.id }
   }
 
   describe "GET #new" do

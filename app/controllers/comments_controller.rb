@@ -19,6 +19,11 @@ class CommentsController < ApplicationController
     end
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+    @replies = @comment.replies.includes(:user)
+  end
+
   private
 
   def comment_params
