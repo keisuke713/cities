@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
   def new
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:comment_id])
     @reply = Reply.new
   end
 

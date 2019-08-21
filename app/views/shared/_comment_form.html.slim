@@ -1,0 +1,6 @@
+= form_with model: object, url: url do |f|
+  .form
+    = f.label :本文
+    = f.text_area :content, size: '40*100'
+  .form
+    = f.submit 'comment', class: 'btn'
