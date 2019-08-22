@@ -20,14 +20,8 @@ RSpec.describe RepliesController, type: :controller do
     comment
   }
 
-  let(:valid_attributes) {
-    valid_attributes = FactoryBot.attributes_for(:reply)
-    valid_attributes.merge(user_id: user.id)
-    valid_attributes.merge(comment_id: comment.id)
-  }
-
   let(:comment_params) {
-    { id: comment.id }
+    { comment_id: comment.id }
   }
 
   describe "GET #new" do
@@ -48,6 +42,9 @@ RSpec.describe RepliesController, type: :controller do
   end
 
   describe "GET #create" do
+    let(:valid_attributes) {
+      FactoryBot.attributes_for(:reply)
+    }
     context 'parameter is reasonable' do
       it "is registered" do
         expect {
@@ -62,14 +59,17 @@ RSpec.describe RepliesController, type: :controller do
     end
 
     context "parameter isn't reasonable" do
+      let(:invalid_attributes) {
+        FactoryBot.attributes_for(:reply, content: nil)
+      }
       it "isn't registered" do
         expect {
-          post :create, params: { user_id: user.id, comment_id: comment.id }
-        }.to change( Reply, :count )
+          post :create, params: { user_id: user.id, comment_id: comment.id, reply: invalid_attributes }
+        }.to_not change( Reply, :count )
       end
 
       it "render new page" do
-        post :create, params: { user_id: user.id, comment_id: comment.id }
+        post :create, params: { user_id: user.id, comment_id: comment.id, reply: invalid_attributes }
         expect(response).to render_template 'new'
       end
     end
