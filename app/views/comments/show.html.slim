@@ -1,0 +1,19 @@
+= provide(:title, :Comment)
+.container
+  .row
+    .comment
+      p
+        | 投稿者
+        = link_to @comment.user.name, @comment.user
+      p = @comment.content
+      p = l @comment.created_at
+
+    - @replies.each do |reply|
+      .comment
+        p
+          | 投稿者
+          = link_to reply.user.name, reply.user
+        p = reply.content
+        p = l reply.created_at
+
+    p = link_to '返信する', new_comment_reply_path(@comment.id)

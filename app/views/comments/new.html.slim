@@ -5,9 +5,4 @@
     .row
       .col-md-6
         = render 'shared/error_messages', object: @comment
-        = form_with model: @comment, url: post_comments_path(@post.id) do |f|
-          .form
-            = f.label :本文
-            = f.text_area :content, size: '40*100'
-          .form
-            = f.submit 'comment', class: 'btn'
+        = render 'shared/comment_form', object: @comment, url: post_comments_path(@post.id)
