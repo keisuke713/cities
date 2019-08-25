@@ -53,39 +53,19 @@ RSpec.describe User, type: :model do
   end
 
   describe "user_association" do
-    let(:current_user) {
-      user.save
-      user
-    }
-
-    let!(:post) {
-      current_user.posts.create(FactoryBot.attributes_for(:post))
-    }
-
-    let!(:comment) {
-      comment = current_user.comments.build(FactoryBot.attributes_for(:comment))
-      comment.post = post
-      comment.save
-      comment
-    }
-
-    let(:reply_attributes) {
-      FactoryBot.attributes_for(:reply)
-    }
-
     it "is deleted related post when user is deleted" do
-      expect{ current_user.destroy }.to change{ Post.count }.by(-1)
+      post = FactoryBot.create(:post)
+      expect{ post.user.destroy }.to change{ Post.count }.by(-1)
     end
 
     it "is deleted related comment when user is deleted" do
-      expect{ current_user.destroy }.to change{ Comment.count }.by(-1)
+      comment = FactoryBot.create(:comment)
+      expect{ comment.user.destroy }.to change{ Comment.count }.by(-1)
     end
 
     it "is deleted related reply when user is deleted" do
-      reply = current_user.replies.build(reply_attributes)
-      reply.comment = comment
-      reply.save
-      expect{ current_user.destroy }.to change{ Reply.count }.by(-1)
+      reply = FactoryBot.create(:reply)
+      expect{ reply.user.destroy }.to change{ Reply.count }.by(-1)
     end
   end
 end

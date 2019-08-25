@@ -10,11 +10,11 @@ RSpec.describe Post, type: :model do
   }
 
   let(:post) {
-    user.posts.build(valid_attributes)
+    FactoryBot.build(:post)
   }
 
   let!(:post1) {
-    user.posts.create(valid_attributes)
+    FactoryBot.create(:post)
   }
 
   describe "post_validation_and_scope" do
@@ -47,13 +47,9 @@ RSpec.describe Post, type: :model do
   end
 
   describe "post_association" do
-    let(:comment_attributes) {
-      FactoryBot.attributes_for(:comment).merge(post: post)
-    }
     it 'ia deleted related comment when post is deleted' do
-      comment = user.comments.build(comment_attributes)
-      comment.save
-      expect{ post.destroy }.to change{ Comment.count }.by(-1)
+      comment = FactoryBot.create(:comment)
+      expect{ comment.post.destroy }.to change{ Comment.count }.by(-1)
     end
   end
 end

@@ -51,15 +51,17 @@ RSpec.describe PostsController, type: :controller do
       let!(:valid_attributes) {
         FactoryBot.attributes_for(:post)
       }
-
+      let(:valid_params) {
+         { user_id: user.id, post: valid_attributes }
+      }
       it "is registered" do
         expect {
-          post :create, params: { user_id: user.id, post: valid_attributes }
+          post :create, params: valid_params
         }.to change(Post, :count).by(1)
       end
 
       it "redirect user page" do
-        post :create, params: { user_id: user.id, post: valid_attributes }
+        post :create, params: valid_params
         expect(response).to redirect_to user
       end
     end
@@ -68,15 +70,17 @@ RSpec.describe PostsController, type: :controller do
       let(:invalid_attributes) {
         FactoryBot.attributes_for(:post, content: nil)
       }
-
+      let(:invalid_params) {
+        { user_id: user.id, post: invalid_attributes }
+      }
       it "isn't registered" do
         expect {
-          post :create, params: { user_id: user.id, post: invalid_attributes }
+          post :create, params: invalid_params
         }.to_not change(Post, :count)
       end
 
       it "redirect new page" do
-        post :create, params: { user_id: user.id, post: invalid_attributes }
+        post :create, params: invalid_params
         expect(response).to render_template 'new'
       end
     end
@@ -84,7 +88,7 @@ RSpec.describe PostsController, type: :controller do
 
   describe "GET #show" do
     let(:post) {
-      FactoryBot.create(:post, user_id: user.id)
+      FactoryBot.create(:post)
     }
 
     let(:post_params) {
@@ -102,9 +106,7 @@ RSpec.describe PostsController, type: :controller do
     end
 
     it "assigned comments" do
-      comment = user.comments.build(FactoryBot.attributes_for(:comment))
-      comment.post = post
-      comment.save
+      comment = FactoryBot.create(:comment)
       get :show, params: post_params
       expect(assigns(:comments)).to include comment
     end

@@ -1,27 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Reply, type: :model do
-  let(:user) {
-    FactoryBot.create(:user)
-  }
-
-  let(:comment) {
-    comment = user.comments.build(FactoryBot.attributes_for(:comment))
-    comment.post = user.posts.create(FactoryBot.attributes_for(:post))
-    comment.save
-    comment
-  }
-
-  let(:valid_attributes) {
-    FactoryBot.attributes_for(:reply)
-  }
-
-  let(:reply_attributes) {
-    valid_attributes.merge(comment: comment)
-  }
-
   let(:reply) {
-    user.replies.build(reply_attributes)
+    FactoryBot.build(:reply)
   }
 
   describe "reply_validation" do
