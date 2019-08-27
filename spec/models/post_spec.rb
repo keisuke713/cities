@@ -51,5 +51,10 @@ RSpec.describe Post, type: :model do
       comment = FactoryBot.create(:comment)
       expect{ comment.post.destroy }.to change{ Comment.count }.by(-1)
     end
+
+    it "is deleted related bookmark when post is related" do
+      bookmark = FactoryBot.create(:book_mark)
+      expect{ bookmark.user.destroy }.to change{ BookMark.count }.by(-1)
+    end
   end
 end

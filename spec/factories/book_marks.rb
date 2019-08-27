@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :book_mark do
-    user nil
-    post nil
+    user
+    post 
   end
 end

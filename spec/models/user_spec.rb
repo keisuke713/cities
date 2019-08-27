@@ -67,5 +67,10 @@ RSpec.describe User, type: :model do
       reply = FactoryBot.create(:reply)
       expect{ reply.user.destroy }.to change{ Reply.count }.by(-1)
     end
+
+    it "is deleted related book_mark when user is deleted" do
+      book_mark = FactoryBot.create(:book_mark)
+      expect{ book_mark.user.destroy }.to change{ BookMark.count }.by(-1)
+    end
   end
 end
