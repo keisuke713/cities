@@ -52,4 +52,25 @@ RSpec.describe BookMarksController, type: :controller do
     end
   end
 
+  describe "DELETE #destroy" do
+    let!(:user_post) {
+      FactoryBot.create(:post)
+    }
+    let(:book_mark) {
+      FactoryBot.create(:book_mark)
+    }
+    let!(:book_mark_params) {
+      { post_id: user_post.id, id: book_mark.id }
+    }
+    it "delete book_mark" do
+      expect {
+        delete :destroy, params: book_mark_params
+      }.to change(BookMark, :count).by(-1)
+    end
+
+    it "redirect post page" do
+      delete :destroy, params: book_mark_params
+      expect(response).to redirect_to post_path
+    end
+  end
 end
