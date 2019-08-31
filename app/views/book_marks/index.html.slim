@@ -1,2 +1,7 @@
-h1 BookMarks#index
-p Find me in app/views/book_marks/index.html.slim
+= provide(:title, BookMark)
+.container
+  = render 'shared/user_profile', user: @user
+  h2
+    = link_to '全ての投稿', user_path(@user)
+    | ブックマーク
+  = render 'shared/posts', posts: @posts
