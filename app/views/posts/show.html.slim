@@ -9,10 +9,11 @@
       p = @post.content
       p = l @post.created_at
       p.contact = link_to 'コメントする', new_post_comment_url(@post.id)
-      - if BookMark.exist?(current_user,@post)
-        p.contact = link_to 'ブックマークを取り消す', '#'
-      - else
+      - if @book_mark_id.nil?
         p.contact = link_to 'ブックマークする', post_book_marks_url(@post.id), method: :post
+      - else
+        p.contact = link_to 'ブックマークを取り消す', post_book_mark_url(@post.id, @book_mark_id), method: :delete
+
 
     - if @comments.empty?
       h3 コメントはありません

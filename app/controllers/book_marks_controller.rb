@@ -3,7 +3,7 @@ class BookMarksController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @posts = Post.where(id: BookMark.post_id(params[:user_id]))
+    @posts = Post.where(id: BookMark.find_post_id(params[:user_id]))
   end
 
   def create
@@ -12,5 +12,7 @@ class BookMarksController < ApplicationController
   end
 
   def destroy
+    BookMark.find(params[:id]).destroy
+    redirect_to post_url(params[:post_id])
   end
 end

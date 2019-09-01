@@ -4,4 +4,7 @@
   h2
     = link_to '全ての投稿', user_path(@user)
     | ブックマーク
-  = render 'shared/posts', posts: @posts
+  - if @posts.empty?
+    p ブックマークされた投稿はありません
+  - else
+    = render 'shared/posts', posts: @posts
