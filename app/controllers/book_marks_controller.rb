@@ -1,13 +1,13 @@
 class BookMarksController < ApplicationController
+  before_action :logged_in_user
+
   def index
     @user = User.find(params[:user_id])
-    book_marks = BookMark.where("user_id = ?", params[:user_id])
-    post_ids = book_marks.map(&:post_id)
-    @posts = Post.where(id: post_ids)
+    @posts = Post.where(id: BookMark.post_id(params[:user_id]))
   end
 
   def create
-    BookMark.create(user_id: current_user.id, post_id: params[:post_id])
+    current_user.book_marks.create(post_id: params[:post_id])
     redirect_to post_url(params[:post_id])
   end
 
