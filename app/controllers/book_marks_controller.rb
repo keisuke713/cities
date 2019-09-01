@@ -3,12 +3,21 @@ class BookMarksController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @posts = Post.where(id: BookMark.find_post_id(params[:user_id]))
+    @posts = @user.book_marked_posts
   end
 
   def create
-    current_user.book_marks.create(post_id: params[:post_id])
-    redirect_to post_url(params[:post_id])
+    @post = Post.find(params[:post_id])
+    book_mark = BookMark.new(
+      user_id: current_user.id,
+      post_id: params[:post_id]
+    )
+
+    if book_mark.save
+      redirect_to @post
+    else
+      render 'posts/show'
+    end
   end
 
   def destroy
