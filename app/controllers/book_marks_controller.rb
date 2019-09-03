@@ -8,10 +8,7 @@ class BookMarksController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    book_mark = BookMark.new(
-      user_id: current_user.id,
-      post_id: params[:post_id]
-    )
+    book_mark = @post.book_marks.build(user_id: current_user.id)
 
     if book_mark.save
       redirect_to @post

@@ -1,9 +1,0 @@
-  .posts
-    - posts.each do |post|
-      .post
-        .post-content
-          = image post
-        .post-content
-          p.break = shorted_text post
-          p = l post.created_at
-          = link_to '詳細をみる', post

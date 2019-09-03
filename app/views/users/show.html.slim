@@ -4,4 +4,4 @@
   h2
     | 全ての投稿
     = link_to 'ブックマーク', user_book_marks_path(@user)
-  = render 'shared/posts', posts: @posts
+  = render partial: 'shared/post', collection: @posts

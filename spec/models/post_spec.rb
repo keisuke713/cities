@@ -47,14 +47,22 @@ RSpec.describe Post, type: :model do
   end
 
   describe "post_association" do
-    it 'ia deleted related comment when post is deleted' do
-      comment = FactoryBot.create(:comment)
-      expect{ comment.post.destroy }.to change{ Comment.count }.by(-1)
+    context 'when post has comments' do
+      let!(:comment) {
+        FactoryBot.create(:comment)
+      }
+      it 'ia deleted related comment when post is deleted' do
+        expect{ comment.post.destroy }.to change{ Comment.count }.by(-1)
+      end
     end
 
-    it "is deleted related bookmark when post is related" do
-      bookmark = FactoryBot.create(:book_mark)
-      expect{ bookmark.post.destroy }.to change{ BookMark.count }.by(-1)
+    context 'when post has book_marks' do
+      let!(:book_mark) {
+        FactoryBot.create(:book_mark)
+      }
+      it "is deleted related bookmark when post is related" do
+        expect{ book_mark.post.destroy }.to change{ BookMark.count }.by(-1)
+      end
     end
   end
 end

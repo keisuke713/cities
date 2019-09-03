@@ -53,24 +53,40 @@ RSpec.describe User, type: :model do
   end
 
   describe "user_association" do
-    it "is deleted related post when user is deleted" do
-      post = FactoryBot.create(:post)
-      expect{ post.user.destroy }.to change{ Post.count }.by(-1)
+    context 'when user has posts' do
+      let!(:post) {
+        FactoryBot.create(:post)
+      }
+      it "is deleted related post when user is deleted" do
+        expect{ post.user.destroy }.to change{ Post.count }.by(-1)
+      end
     end
 
-    it "is deleted related comment when user is deleted" do
-      comment = FactoryBot.create(:comment)
-      expect{ comment.user.destroy }.to change{ Comment.count }.by(-1)
+    context 'when user has comments' do
+      let!(:comment) {
+        FactoryBot.create(:comment)
+      }
+      it "is deleted related comment when user is deleted" do
+        expect{ comment.user.destroy }.to change{ Comment.count }.by(-1)
+      end
     end
 
-    it "is deleted related reply when user is deleted" do
-      reply = FactoryBot.create(:reply)
-      expect{ reply.user.destroy }.to change{ Reply.count }.by(-1)
+    context 'when user has replies' do
+      let!(:reply) {
+        FactoryBot.create(:reply)
+      }
+      it "is deleted related reply when user is deleted" do
+        expect{ reply.user.destroy }.to change{ Reply.count }.by(-1)
+      end
     end
 
-    it "is deleted related book_mark when user is deleted" do
-      book_mark = FactoryBot.create(:book_mark)
-      expect{ book_mark.user.destroy }.to change{ BookMark.count }.by(-1)
+    context 'when user has book_marks' do
+      let!(:book_mark) {
+        FactoryBot.create(:book_mark)
+      }
+      it "is deleted related book_mark when user is deleted" do
+        expect{ book_mark.user.destroy }.to change{ BookMark.count }.by(-1)
+      end
     end
   end
 end

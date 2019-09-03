@@ -7,4 +7,4 @@
   - if @posts.empty?
     p ブックマークされた投稿はありません
   - else
-    = render 'shared/posts', posts: @posts
+    = render partial: "shared/post", collection: @posts
