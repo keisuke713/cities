@@ -1,6 +1,6 @@
-= provide(:title, BookMark)
+= provide(:title, :BookMark)
 .container
-  = render 'shared/user_profile', user: @user
+  = render 'shared/user', collection: @user
   h2
     = link_to '全ての投稿', user_path(@user)
     | ブックマーク
