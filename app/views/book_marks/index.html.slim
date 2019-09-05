@@ -1,0 +1,10 @@
+= provide(:title, :BookMark)
+.container
+  = render 'shared/user', collection: @user
+  h2
+    = link_to '全ての投稿', user_path(@user)
+    | ブックマーク
+  - if @posts.empty?
+    p ブックマークされた投稿はありません
+  - else
+    = render partial: "shared/post", collection: @posts

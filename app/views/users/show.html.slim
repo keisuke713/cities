@@ -1,23 +1,7 @@
 = provide(:title, @user.name)
 .container
-  .profiles
-    .image
-      = image user
-    .name
-      h1
-        = @user.name
-      p.break
-        = @user.intro
-  p
-    = edit_user_link @user
+  = render 'shared/user', collection: @user
   h2
     | 全ての投稿
-  .posts
-    - @posts.each do |post|
-      .post
-        .post-content
-          = image post
-        .post-content
-          p.break = shorted_text post
-          p = l post.created_at
-          = link_to '詳細をみる', post
+    = link_to 'ブックマーク', user_book_marks_path(@user)
+  = render partial: 'shared/post', collection: @posts

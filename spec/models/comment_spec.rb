@@ -22,9 +22,13 @@ RSpec.describe Comment, type: :model do
   end
 
   describe "comment_association" do
-    it "is deleted related reply when comment is deleted" do
-      reply = FactoryBot.create(:reply)
-      expect{ reply.comment.destroy }.to change{ Reply.count }.by(-1)
+    context 'when comment has replies' do
+      let!(:reply) {
+        FactoryBot.create(:reply)
+      }
+      it "is deleted related reply when comment is deleted" do
+        expect{ reply.comment.destroy }.to change{ Reply.count }.by(-1)
+      end
     end
   end
 end

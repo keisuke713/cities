@@ -23,6 +23,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments.includes(:user)
+    @book_mark_id = BookMark.find_by(user_id: current_user.id, post_id: @post.id)&.id
   end
 
   private
