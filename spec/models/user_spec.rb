@@ -102,4 +102,13 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "instance method" do
+    let!(:user) {
+      FactoryBot.create(:user, intro: 'a' * 140)
+    }
+    it 'is text_slice' do
+      expect(user.text_slice).to eq 'a' * 25 + '...'
+    end
+  end
 end

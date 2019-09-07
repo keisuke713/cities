@@ -65,4 +65,16 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe "instance method" do
+    let(:post2) {
+      post1.tap do |p|
+        p.content = 'a' * 140
+        p.save
+      end
+    }
+    it 'text_slice' do
+      expect(post2.text_slice).to eq 'a' * 20 + '...'
+    end
+  end
 end
