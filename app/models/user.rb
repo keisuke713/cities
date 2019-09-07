@@ -4,6 +4,12 @@ class User < ApplicationRecord
   has_many :replies, dependent: :destroy
   has_many :book_marks, dependent: :destroy
   has_many :book_marked_posts, through: :book_marks, source: :post
+  has_many :active_relationships, class_name: :Relationship,
+                   foreign_key: :follower_id,
+                   dependent: :destroy
+  has_many :passive_relationships, class_name: :Relationship,
+                   foreign_key: :followed_id,
+                   dependent: :destroy
   before_save { self.email = email.downcase }
   validates :name,  presence: true
   validates :email, presence: true, uniqueness: true

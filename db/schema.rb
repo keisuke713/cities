@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2019_09_05_215311) do
   create_table "posts", force: :cascade do |t|
     t.text "content", null: false
     t.integer "user_id", null: false
-    t.string "image"
+    t.string "image", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"

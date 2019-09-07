@@ -88,5 +88,18 @@ RSpec.describe User, type: :model do
         expect{ book_mark.user.destroy }.to change{ BookMark.count }.by(-1)
       end
     end
+
+    context 'when user follow other user' do
+      let!(:relationship) {
+        FactoryBot.create(:relationship)
+      }
+      it 'is deleted relationship when follower is deleted' do
+        expect{ relationship.follower.destroy }.to change{ Relationship.count }.by(-1)
+      end
+
+      it 'is deleted relationship when followed is deleted' do
+        expect{ relationship.followed.destroy }.to change{ Relationship.count }.by(-1)
+      end
+    end
   end
 end
