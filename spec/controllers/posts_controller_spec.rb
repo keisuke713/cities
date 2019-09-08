@@ -9,24 +9,35 @@ RSpec.describe PostsController, type: :controller do
     log_in user
   end
 
-  xdescribe "GET #index" do
-    let(:post) {
+  describe "GET #index" do
+    let(:relationship) {
+      FactoryBot.create(:relationship)
+    }
+    let(:current_user) {
+      relationship.follower
+    }
+    let(:user) {
+      relationship.followed
+    }
+    let!(:post) {
       FactoryBot.create(:post)
     }
-
+    let(:user_params) {
+      { user_id: user.id }
+    }
     it "returns http success" do
-      get :index
-      expect(response).to be_successful
+      get :index, params: user_params
+      expect(response.status).to eq 200
     end
 
     it "assign all posts" do
-      get :index
+      get :index, params: user_params
       expect(assigns(:psots)).to include post
     end
 
     it "returns a 200 status" do
-      get :index
-      expect(response.status).to eq 200
+      get :index, params: user_params
+      expect(response).to render_template 'index'
     end
   end
 
