@@ -196,4 +196,61 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #following" do
+    let(:relationship) {
+      FactoryBot.create(:relationship)
+    }
+    let(:user) {
+      relationship.follower
+    }
+    let(:following_user) {
+      relationsip.followed
+    }
+    let(:user_params) {
+      { user_id: user.id }
+    }
+    it "return http success" do
+      get :following, params: user_params
+      expect(response.status).to eq 200
+    end
+
+    it "assign following user" do
+      get :following, params: user_params
+      expect(assings(:users)).to include(following_user)
+    end
+
+    it "render index page" do
+      get :following, params: user_params
+      expect(response).to render_template 'index'
+    end
+  end
+
+  describe "GET #followers" do
+    let(:relationship) {
+      FactoryBot.create(:relationship)
+    }
+    let(:user) {
+      relationship.followed
+    }
+    let(:following_user) {
+      relationsip.follower
+    }
+    let(:user_params) {
+      { user_id: user.id }
+    }
+    it "return http success" do
+      get :followers, params: user_params
+      expect(response.status).to eq 200
+    end
+
+    it "assign followed user" do
+      get :followers, params: user_params
+      expect(assigns(:user)).to include following_user
+    end
+
+    it "render index page" do
+      get :followers, params: user_params
+      expect(response).to render_template 'index'
+    end
+  end
 end
