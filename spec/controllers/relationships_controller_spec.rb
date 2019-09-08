@@ -11,48 +11,20 @@ RSpec.describe RelationshipsController, type: :controller do
 
   describe "POST #create" do
     let(:other_user) {
-      FactoryBot.create(:user)
+      FactoryBot.create(:admin_user)
     }
-    context 'when paramater is correct' do
-      let(:valid_params) {
-        { followed_id: user.id, follower_id: other_user.id }
-      }
-      it "return https success" do
+    let(:valid_params) {
+      { user_id: other_user.id }
+    }
+    it "is registered" do
+      expect {
         post :create, params: valid_params
-        expect(response).to eq 200
-      end
-
-      it "is registered" do
-        expect {
-          post :create, params: valid_params
-        }.to change( Relationship, :count).by(1)
-      end
-
-      it "redirect user page" do
-        post :create, params: valid_params
-        expect(response).to redirect user_url(other_user.id)
-      end
+      }.to change( Relationship, :count).by(1)
     end
 
-    context 'when paramater is not correct' do
-      let(:invalid_params) {
-        { follower_id: user.id }
-      }
-      it "return htttps success" do
-        post :create, params: invalid_params
-        expect(response).to eq 200
-      end
-
-      it "is't registered" do
-        expect{
-          post :create, params: invalid_params
-        }.to_not change( Relationship, :count)
-      end
-
-      it "render user page" do
-        post :create, params: invalid_params
-        expect(response).to render_template 'user/show'
-      end
+    it "redirect user page" do
+      post :create, params: valid_params
+      expect(response).to redirect_to user_url(other_user.id)
     end
   end
 

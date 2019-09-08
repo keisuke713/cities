@@ -6,5 +6,10 @@
         = @user.name
       p.break
         = @user.intro
+      = follow_or_unfollow_link(current_user, @user)
+      p.relation
+        = link_to @user.following_count, '#'
+      p.relation
+        = link_to @user.followers_count, '#'
   p
     = edit_user_link @user

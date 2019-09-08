@@ -104,11 +104,31 @@ RSpec.describe User, type: :model do
   end
 
   describe "instance method" do
-    let!(:user) {
-      FactoryBot.create(:user, intro: 'a' * 140)
-    }
-    it 'is text_slice' do
-      expect(user.text_slice).to eq 'a' * 25 + '...'
+    context 'when use text_slice' do
+      let!(:user) {
+        FactoryBot.create(:user, intro: 'a' * 140)
+      }
+      it 'is text_slice' do
+        expect(user.text_slice).to eq 'a' * 25 + '...'
+      end
+    end
+
+    context 'when use following_count' do
+      let(:relationship) {
+        FactoryBot.create(:relationship)
+      }
+      it 'return followings' do
+        expect(relationship.follower.following_count).to eq '1following'
+      end
+    end
+
+    context 'when use followers_count' do
+      let(:relationship) {
+        FactoryBot.create(:relationship)
+      }
+      it 'return followers' do
+        expect(relationship.followed.followers_count).to eq '1followers'
+      end
     end
   end
 end

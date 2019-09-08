@@ -28,4 +28,12 @@ class User < ApplicationRecord
   def text_slice
     intro.length > 25 ? "#{intro.slice(0..24)}..." : intro
   end
+
+  def following_count
+    "#{following.count}following"
+  end
+
+  def followers_count
+    "#{followers.count}followers"
+  end
 end
