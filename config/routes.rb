@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :new, :create]
     resources :book_marks, only: :index
     resources :relationships, only: [:create, :destroy]
+    member do
+      get :following, :followers
+    end
   end
   resources :posts, only: :show do
     resources :comments, only: [:new, :create]

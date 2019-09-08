@@ -204,11 +204,14 @@ RSpec.describe UsersController, type: :controller do
       relationship.follower
     }
     let(:following_user) {
-      relationsip.followed
+      relationship.followed
     }
     let(:user_params) {
-      { user_id: user.id }
+      { id: user.id }
     }
+    before do
+      log_in user
+    end
     it "return http success" do
       get :following, params: user_params
       expect(response.status).to eq 200
@@ -216,7 +219,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "assign following user" do
       get :following, params: user_params
-      expect(assings(:users)).to include(following_user)
+      expect(assigns(:users)).to include(following_user)
     end
 
     it "render index page" do
@@ -233,11 +236,14 @@ RSpec.describe UsersController, type: :controller do
       relationship.followed
     }
     let(:following_user) {
-      relationsip.follower
+      relationship.follower
     }
     let(:user_params) {
-      { user_id: user.id }
+      { id: user.id }
     }
+    before do
+      log_in user
+    end
     it "return http success" do
       get :followers, params: user_params
       expect(response.status).to eq 200
@@ -245,7 +251,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "assign followed user" do
       get :followers, params: user_params
-      expect(assigns(:user)).to include following_user
+      expect(assigns(:users)).to include following_user
     end
 
     it "render index page" do
