@@ -3,6 +3,7 @@
       .post-content
         = image post
       .post-content
+        p = link_to post.user.name, user_path(post.user.id)
         p.break = shorted_text post
         p = l post.created_at
         = link_to '詳細をみる', post

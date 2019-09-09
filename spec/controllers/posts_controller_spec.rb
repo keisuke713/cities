@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
-  let!(:user) {
-    FactoryBot.create(:user)
+  let(:user) {
+    FactoryBot.create(:admin_user)
   }
 
   before do
@@ -10,18 +10,12 @@ RSpec.describe PostsController, type: :controller do
   end
 
   describe "GET #index" do
-    let(:relationship) {
-      FactoryBot.create(:relationship)
-    }
-    let(:current_user) {
-      relationship.follower
-    }
-    let(:user) {
-      relationship.followed
-    }
-    let!(:post) {
+    let(:post) {
       FactoryBot.create(:post)
     }
+    before do
+      user.active_relationships.create(followed_id: post.user.id)
+    end
     let(:user_params) {
       { user_id: user.id }
     }
@@ -32,7 +26,7 @@ RSpec.describe PostsController, type: :controller do
 
     it "assign all posts" do
       get :index, params: user_params
-      expect(assigns(:psots)).to include post
+      expect(assigns(:posts)).to include post
     end
 
     it "returns a 200 status" do
