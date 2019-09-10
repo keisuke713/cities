@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page])
+    @title = 'All Users'
   end
 
   def new
@@ -52,11 +53,13 @@ class UsersController < ApplicationController
 
   def following
     @users = user.following.paginate(page: params[:page])
+    @title = 'Following Users'
     render 'index'
   end
 
   def followers
     @users = user.followers.paginate(page: params[:page])
+    @title = 'Followers'
     render 'index'
   end
 
