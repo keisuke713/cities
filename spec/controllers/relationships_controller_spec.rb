@@ -29,25 +29,20 @@ RSpec.describe RelationshipsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let(:relationship) {
+    let!(:relationship) {
       FactoryBot.create(:relationship)
     }
     let(:relationship_params) {
       { user_id: relationship.followed.id, id: relationship.id }
     }
-    it "return http success" do
-      delete :destory, params: relationship_params
-      expect(response).to eq 200
-    end
-
-    it "delete relationsip" do
+    it "delete relationship" do
       expect{
-        delete :destory, params: relationship_params
+        delete :destroy, params: relationship_params
       }.to change( Relationship, :count).by(-1)
     end
 
     it "redirect user page" do
-      delete :destory, params: relationship_params
+      delete :destroy, params: relationship_params
       expect(response).to redirect_to user_url(relationship.followed.id)
     end
   end

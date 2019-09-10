@@ -15,5 +15,8 @@ class RelationshipsController < ApplicationController
   end
 
   def destroy
+    Relationship.find(params[:id]).destroy
+    flash[:success] = 'success in unfollowing'
+    redirect_to user_url(params[:user_id])
   end
 end
