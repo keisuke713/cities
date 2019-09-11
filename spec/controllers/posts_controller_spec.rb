@@ -29,7 +29,7 @@ RSpec.describe PostsController, type: :controller do
       expect(assigns(:posts)).to include post
     end
 
-    it "returns a 200 status" do
+    it "render index page" do
       get :index, params: user_params
       expect(response).to render_template 'index'
     end
