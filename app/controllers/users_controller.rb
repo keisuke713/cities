@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def show
     @user = user
     @posts = @user.posts
-    @relationship = Relationship.find_by(follower_id: current_user.id, followed_id: @user.id)
+    @relationship_id = Relationship.find_by_id(current_user, @user)
   end
 
   def edit
