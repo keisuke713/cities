@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :following, :followers]
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user?, only: :destroy
 
@@ -49,18 +49,6 @@ class UsersController < ApplicationController
     user.destroy
     flash[:success] = 'success!'
     redirect_to users_path
-  end
-
-  # def following
-  #   @users = user.following.paginate(page: params[:page])
-  #   @title = 'Following Users'
-  #   render 'index'
-  # end
-
-  def followers
-    @users = user.followers.paginate(page: params[:page])
-    @title = 'Followers'
-    render 'index'
   end
 
   private
