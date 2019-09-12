@@ -10,8 +10,8 @@ class Post < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  def self.find_posts(user)
-    where(user_id: user.following.ids).includes(:user)
+  def self.find_posts(following_ids)
+    where(user_id: following_ids).includes(:user)
   end
 
   def text_slice

@@ -4,7 +4,7 @@ class Relationship < ApplicationRecord
   validates :follower_id, presence: true
   validates :followed_id, presence: true
 
-  def self.find_by_id(current_user, user)
-    find_by(follower_id: current_user.id, followed_id: user.id)&.id
+  def self.find_by_id(current_user_id, user_id)
+    find_by(follower_id: current_user_id, followed_id: user_id)&.id
   end
 end

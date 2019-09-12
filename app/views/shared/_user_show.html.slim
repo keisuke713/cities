@@ -7,7 +7,7 @@
       p.break
         = @user.intro
       p
-        = follow_or_unfollow_link(current_user, @user)
+        = follow_or_unfollow_link(current_user.id, @user.id, @relationship_id)
       p.relation
         = link_to @user.following_count, user_followings_path(@user)
       p.relation
