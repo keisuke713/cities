@@ -51,11 +51,11 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def following
-    @users = user.following.paginate(page: params[:page])
-    @title = 'Following Users'
-    render 'index'
-  end
+  # def following
+  #   @users = user.following.paginate(page: params[:page])
+  #   @title = 'Following Users'
+  #   render 'index'
+  # end
 
   def followers
     @users = user.followers.paginate(page: params[:page])

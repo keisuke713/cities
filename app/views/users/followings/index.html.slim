@@ -1,2 +1,5 @@
-h1 Users::Followings#index
-p Find me in app/views/users/followings/index.html.slim
+= provide(:title, 'Following Users')
+.container
+  h1
+    | Following Users
+  = render partial: 'shared/user', collection: @users

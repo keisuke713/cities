@@ -1,0 +1,16 @@
+  .profiles
+    .image
+      = image @user
+    .name
+      h1
+        = @user.name
+      p.break
+        = @user.intro
+      p
+        = follow_or_unfollow_link(current_user, @user)
+      p.relation
+        = link_to @user.following_count, user_followings_path(@user)
+      p.relation
+        = link_to @user.followers_count, user_followers_path(@user)
+  p
+    = edit_user_link @user

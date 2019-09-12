@@ -1,15 +1,6 @@
-= provide(:title, @title)
+= provide(:title, 'All Users')
 .container
   h1
-    = @title
-  .index
-    - @users.each do |user|
-      .user
-        h2.profile
-          = user.name
-        p.profile
-          = shorted_text user
-          = link_to '詳細を見る', user
-      p
-        = delete_user_link user
+    | All Users
+  = render partial: 'shared/user', collection: @users
   = will_paginate

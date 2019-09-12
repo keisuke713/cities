@@ -218,17 +218,17 @@ RSpec.describe UsersController, type: :controller do
   #     log_in user
   #   end
   #   it "return http success" do
-  #     get :followers, params: user_params
+  #     get :index, params: user_params
   #     expect(response.status).to eq 200
   #   end
   #
   #   it "assign followed user" do
-  #     get :followers, params: user_params
+  #     get :index, params: user_params
   #     expect(assigns(:users)).to include following_user
   #   end
   #
   #   it "render index page" do
-  #     get :followers, params: user_params
+  #     get :index, params: user_params
   #     expect(response).to render_template 'index'
   #   end
   # end
