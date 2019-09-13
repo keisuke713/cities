@@ -1,10 +1,9 @@
-  .profiles
-    .image
-      = image @user
-    .name
-      h1
-        = @user.name
-      p.break
-        = @user.intro
+.index
+  .user
+    h2.profile
+      = user.name
+    p.profile
+      = shorted_text user
+      = link_to '詳細を見る', user
   p
-    = edit_user_link @user
+    = delete_user_link user

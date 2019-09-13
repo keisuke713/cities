@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :users do
     resources :posts, only: [:index, :new, :create]
     resources :book_marks, only: :index
+    resources :relationships, only: [:create, :destroy]
+    resources :followings, only: :index, module: :users
+    resources :followers, only: :index, module: :users
   end
   resources :posts, only: :show do
     resources :comments, only: [:new, :create]

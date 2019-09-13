@@ -85,19 +85,24 @@ RSpec.describe UsersController, type: :controller do
     let(:user) {
       FactoryBot.create(:user)
     }
-
+    before do
+      log_in user
+    end
+    let(:user_params) {
+      { id: user.id }
+    }
     it "returns http success" do
-      get :show, params: { id: user.id }
+      get :show, params: user_params
       expect(response).to be_successful
     end
 
     it "assigned the user" do
-      get :show, params: { id: user.id }
+      get :show, params: user_params
       expect(assigns(:user)).to eq user
     end
 
     it "returns a 200 response" do
-      get :show, params: { id: user.id }
+      get :show, params: user_params
       expect(response.status).to eq 200
     end
   end

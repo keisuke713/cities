@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page])
+    @title = 'All Users'
   end
 
   def new
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
   def show
     @user = user
     @posts = @user.posts
+    @relationship_id = Relationship.find_by_id(current_user.id, @user.id)
   end
 
   def edit

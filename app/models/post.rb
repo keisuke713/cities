@@ -10,6 +10,10 @@ class Post < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  def self.find_posts(following_ids)
+    where(user_id: following_ids).includes(:user)
+  end
+
   def text_slice
     content.length > 50 ? "#{content.slice(0..19)}..." : content
   end

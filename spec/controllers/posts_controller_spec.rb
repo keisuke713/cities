@@ -1,32 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
-  let!(:user) {
-    FactoryBot.create(:user)
+  let(:user) {
+    FactoryBot.create(:admin_user)
   }
 
   before do
     log_in user
   end
 
-  xdescribe "GET #index" do
+  describe "GET #index" do
     let(:post) {
       FactoryBot.create(:post)
     }
-
+    before do
+      user.active_relationships.create(followed_id: post.user.id)
+    end
+    let(:user_params) {
+      { user_id: user.id }
+    }
     it "returns http success" do
-      get :index
-      expect(response).to be_successful
+      get :index, params: user_params
+      expect(response.status).to eq 200
     end
 
     it "assign all posts" do
-      get :index
-      expect(assigns(:psots)).to include post
+      get :index, params: user_params
+      expect(assigns(:posts)).to include post
     end
 
-    it "returns a 200 status" do
-      get :index
-      expect(response.status).to eq 200
+    it "render index page" do
+      get :index, params: user_params
+      expect(response).to render_template 'index'
     end
   end
 
