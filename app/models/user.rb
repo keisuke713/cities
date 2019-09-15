@@ -12,6 +12,14 @@ class User < ApplicationRecord
                    foreign_key: :followed_id,
                    dependent: :destroy
   has_many :followers, through: :passive_relationships
+  has_many :send_messages, class_name: :Message,
+                foreign_key: :sender_id,
+                dependent: :destroy
+  has_many :sender, through: :send_messages, source: :receiver
+  has_many :receive_messages, class_name: :Message,
+                foreign_key: :receiver_id,
+                dependent: :destroy
+  has_many :receiver, through: :receive_messages, source: :sender
 
   before_save { self.email = email.downcase }
 
