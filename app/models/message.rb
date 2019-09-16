@@ -4,4 +4,8 @@ class Message < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
+
+  def self.sender_and_receiver(user)
+    (user.sender + user.receiver).tap { |users| users.uniq! }
+  end
 end

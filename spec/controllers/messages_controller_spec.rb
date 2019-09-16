@@ -1,13 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe MessagesController, type: :controller do
+  let(:message) {
+    FactoryBot.build(:message)
+  }
+
+  before do
+    log_in message.sender
+  end
+
   describe "GET #index" do
-    let(:message) {
-      FactoryBot.create(:message)
+    before do
+      message.save
+    end
+
+    let!(:receive_message) {
+      FactoryBot.create(:receive_message)
     }
+
     let(:params) {
       { user_id: message.sender.id }
     }
+
     it 'returns a 200 response' do
       get :index, params: params
       expect(response.status).to eq 200
@@ -25,9 +39,6 @@ RSpec.describe MessagesController, type: :controller do
   end
 
   describe "POST #create" do
-    let(:message) {
-      FactoryBot.build(:message)
-    }
     let(:params) {
       { user_id: message.sender.id, id: message.receiver.id }
     }
@@ -49,7 +60,6 @@ RSpec.describe MessagesController, type: :controller do
         message.content += 'a'
       end
       it "don't insert new record" do
-        binding.pry
         expect {
           post :create, params: params
         }.to_not change(Message, :count)
@@ -63,9 +73,9 @@ RSpec.describe MessagesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:message) {
-      FactoryBot.create(:message)
-    }
+    before do
+      message.save
+    end
 
     let(:params) {
       { user_id: message.sender.id, id: message.receiver.id }
