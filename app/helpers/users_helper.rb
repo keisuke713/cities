@@ -14,4 +14,8 @@ module UsersHelper
   def image(user)
     image_tag user.image.thumb30.url if user.image?
   end
+
+  def send_message_link(user_id, other_user_id)
+    link_to 'メッセージを送る', user_message_path(user_id, other_user_id) unless user_id == other_user_id
+  end
 end

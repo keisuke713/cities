@@ -10,6 +10,8 @@ class Message < ApplicationRecord
   end
 
   def self.all_messages(current_user_id, other_user_id)
-    where(sender_id: current_user_id, receiver_id: other_user_id).or(Message.where(sender_id: other_user_id, receiver_id: current_user_id)).order(:created_at).includes(:sender)
+    where(sender_id: current_user_id, receiver_id: other_user_id)
+    .or(Message.where(sender_id: other_user_id, receiver_id: current_user_id))
+    .order(:created_at).includes(:sender)
   end
 end
