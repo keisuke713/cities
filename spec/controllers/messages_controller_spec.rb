@@ -77,6 +77,10 @@ RSpec.describe MessagesController, type: :controller do
       message.save
     end
 
+    let(:receive_message) {
+      FactoryBot.create(:receive_message)
+    }
+
     let(:params) {
       { user_id: message.sender.id, id: message.receiver.id }
     }
@@ -87,7 +91,7 @@ RSpec.describe MessagesController, type: :controller do
 
     it 'assigns messages' do
       get :show, params: params
-      expect(assigns(:messages)).to include message
+      expect(assigns(:messages)).to include receive_message
     end
 
     it 'render show page' do

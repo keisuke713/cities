@@ -9,5 +9,6 @@ class MessagesController < ApplicationController
   end
 
   def show
+    @messages = Message.all_messages(current_user.id, params[:id])
   end
 end
