@@ -2,3 +2,11 @@
 .container
   .row
     = render partial: 'shared/message', collection: @messages
+
+    .footer
+      = form_with model: @messages, url: user_messages_path(current_user.id) do |f|
+        .form
+          = f.text_area :content, size: '40*100'
+          = f.hidden_field :receiver_id, value: params[:id]
+        .form
+          = f.submit '送信', class: 'btn'
