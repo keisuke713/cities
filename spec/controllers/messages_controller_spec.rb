@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MessagesController, type: :controller do
   let(:message) {
-    FactoryBot.build(:message)
+    FactoryBot.create(:message)
   }
 
   before do
@@ -10,14 +10,6 @@ RSpec.describe MessagesController, type: :controller do
   end
 
   describe "GET #index" do
-    before do
-      message.save
-    end
-
-    let!(:receive_message) {
-      FactoryBot.create(:receive_message)
-    }
-
     let(:params) {
       { user_id: message.sender.id }
     }
@@ -39,9 +31,15 @@ RSpec.describe MessagesController, type: :controller do
   end
 
   describe "POST #create" do
-    let(:params) {
-      { user_id: message.sender.id, id: message.receiver.id }
+    let(:attributes) {
+      receiver = { receiver_id: message.receiver.id }
+      FactoryBot.attributes_for(:message).merge(receiver)
     }
+
+    let(:params) {
+      { user_id: message.sender.id, message: attributes }
+    }
+
     context 'when everything is right' do
       it 'insert new record' do
         expect {
@@ -51,14 +49,15 @@ RSpec.describe MessagesController, type: :controller do
 
       it 'redirect show page' do
         post :create, params: params
-        expect(response).to redirect_to user_message_url(message.receiver.id)
+        expect(response).to redirect_to user_message_url(message.sender.id, message.receiver.id)
       end
     end
 
     context "when everything isn't right" do
       before do
-        message.content += 'a'
+        params[:message][:content] += 'a'
       end
+
       it "don't insert new record" do
         expect {
           post :create, params: params
@@ -73,10 +72,6 @@ RSpec.describe MessagesController, type: :controller do
   end
 
   describe 'GET #show' do
-    before do
-      message.save
-    end
-
     let(:receive_message) {
       FactoryBot.create(:receive_message)
     }
