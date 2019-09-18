@@ -12,13 +12,12 @@ class MessagesController < ApplicationController
       flash[:success] = 'succeeded in sending message'
       redirect_to user_message_path(current_user.id, message_params[:receiver_id])
     else
-      flash[:danger] = 'failed  to send message'
+      flash.now[:danger] = 'failed  to send message'
       render 'show'
     end
   end
 
   def show
-    @message = Message.new
     @messages = Message.all_messages(current_user.id, params[:id])
   end
 
