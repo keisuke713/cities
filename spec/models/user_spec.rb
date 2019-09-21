@@ -101,6 +101,19 @@ RSpec.describe User, type: :model do
         expect{ relationship.followed.destroy }.to change{ Relationship.count }.by(-1)
       end
     end
+
+    context 'when user do exchange of message' do
+      let!(:message) {
+        FactoryBot.create(:message)
+      }
+      it 'is deleted exchange of message when user is deleted' do
+        expect{ message.sender.destroy }.to change{ Message.count }.by(-1)
+      end
+
+      it 'is deleted exchange of message when other is deleted' do
+        expect{ message.receiver.destroy }.to change{ Message.count }.by(-1)
+      end
+    end
   end
 
   describe "instance method" do

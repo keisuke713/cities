@@ -3,4 +3,6 @@ class ApplicationController < ActionController::Base
 
   include UsersHelper
   include SessionsHelper
+
+  before_action :logged_in_user
 end

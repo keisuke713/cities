@@ -2,4 +2,5 @@
 = link_to '投稿する', new_user_post_path(current_user.id)
 = link_to 'ユーザー一覧', users_path
 = link_to 'タイムライン', user_posts_path(current_user.id)
+= link_to 'ダイレクトメッセージ', user_messages_path(current_user.id)
 = link_to 'log out', '/logout'

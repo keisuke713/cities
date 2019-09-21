@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :store_location, only: :new
+  skip_before_action :logged_in_user
 
   def new
     @user = User.new

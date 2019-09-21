@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :relationships, only: [:create, :destroy]
     resources :followings, only: :index, module: :users
     resources :followers, only: :index, module: :users
+    resources :messages, only: [:index, :create, :show]
   end
   resources :posts, only: :show do
     resources :comments, only: [:new, :create]

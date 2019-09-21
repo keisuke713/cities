@@ -12,5 +12,6 @@
         = link_to @user.following_count, user_followings_path(@user)
       p.relation
         = link_to @user.followers_count, user_followers_path(@user)
+      p = send_message_link(current_user.id, @user.id)
   p
     = edit_user_link @user

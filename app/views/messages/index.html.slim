@@ -1,0 +1,12 @@
+= provide(:title, 'メッセージ')
+.container
+  .index
+    - if @users.empty?
+      p メッセージを送ってみよう!!!!
+      p = link_to 'ユーザーを探す', users_path
+    -else
+      - @users.each do |user|
+        .user
+          p = link_to user.name, user_path(user.id)
+          p = link_to 'メッセージを見る', user_message_path(current_user.id, user.id)
+      p = link_to '新しくユーザーを探す', users_path
