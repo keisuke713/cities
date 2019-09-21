@@ -15,11 +15,11 @@ class User < ApplicationRecord
   has_many :send_messages, class_name: :Message,
                 foreign_key: :sender_id,
                 dependent: :destroy
-  has_many :sender, through: :send_messages, source: :receiver
+  has_many :received_message_users, through: :send_messages, source: :receiver
   has_many :receive_messages, class_name: :Message,
                 foreign_key: :receiver_id,
                 dependent: :destroy
-  has_many :receiver, through: :receive_messages, source: :sender
+  has_many :sent_message_users, through: :receive_messages, source: :sender
 
   before_save { self.email = email.downcase }
 
@@ -29,6 +29,8 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 8 }, format: { with: /[A-Z]\w+/,
     message: 'the first letter must be upcase' }
+
+  scope :in_ids, -> (_ids){ where(id: _ids) }
 
   mount_uploader :image, ImageUploader
   include SessionsHelper
@@ -43,5 +45,23 @@ class User < ApplicationRecord
 
   def followers_count
     "#{followers.count}followers"
+  end
+
+  def communicated_users
+    self.class.in_ids(communicated_user_ids)
+  end
+
+  private
+
+  def communicated_user_ids
+    (received_message_user_ids + sent_message_user_ids).uniq
+  end
+
+  def received_message_user_ids
+    received_message_users.pluck(:id)
+  end
+
+  def sent_message_user_ids
+    sent_message_users.pluck(:id)
   end
 end

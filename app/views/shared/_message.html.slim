@@ -1,5 +1,5 @@
 .message
-  - if message.sender == current_user
+  - if message.my_message?(current_user)
     .send_message
       p.message_content = message.content
       .time = l message.created_at
