@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_013416) do
+ActiveRecord::Schema.define(version: 2019_09_21_014715) do
 
   create_table "book_marks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_09_14_013416) do
     t.integer "receiver_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_messages_on_created_at"
     t.index ["receiver_id"], name: "index_messages_on_receiver_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
@@ -44,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_09_14_013416) do
   create_table "posts", force: :cascade do |t|
     t.text "content", null: false
     t.integer "user_id", null: false
-    t.string "image", null: false
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"

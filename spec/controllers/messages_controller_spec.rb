@@ -72,13 +72,14 @@ RSpec.describe MessagesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:receive_message) {
+    let!(:receive_message) {
       FactoryBot.create(:receive_message)
     }
 
     let(:params) {
       { user_id: message.sender.id, id: message.receiver.id }
     }
+    
     it 'returns a 200 response' do
       get :show, params: params
       expect(response.status).to eq 200
