@@ -1,0 +1,2 @@
+module Post::RepostHelper
+end
