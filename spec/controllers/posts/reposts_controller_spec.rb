@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Post::RepostController, type: :controller do
+RSpec.describe Posts::RepostsController, type: :controller do
   let(:user) {
     FactoryBot.create(:user)
   }
@@ -9,12 +9,13 @@ RSpec.describe Post::RepostController, type: :controller do
     log_in user
   end
 
+  let!(:parent_post) {
+    FactoryBot.create(:post)
+  }
+
   describe "GET #new" do
-    let(:parent_post) {
-      FactoryBot.create(:post)
-    }
     let(:params) {
-      { user_id: user.id, post_id: parent_post.id }
+      { post_id: parent_post.id }
     }
 
     it "returns a 200 response" do
@@ -24,7 +25,7 @@ RSpec.describe Post::RepostController, type: :controller do
 
     it "assigns parent_post" do
       get :new, params: params
-      expect(assigns(:post)).to eq parent_post
+      expect(assigns(:parent_post)).to eq parent_post
     end
 
     it "render new page" do
@@ -35,11 +36,11 @@ RSpec.describe Post::RepostController, type: :controller do
 
   describe "POST #create" do
     let(:attributes) {
-      FactoryBot.create(:child_post)
+      FactoryBot.attributes_for(:child_post)
     }
 
     let(:params) {
-      { user_id: user.id, post: attributes }
+      { post_id: parent_post.id, post: attributes }
     }
 
     context "when parameter is reasonable" do
@@ -51,7 +52,7 @@ RSpec.describe Post::RepostController, type: :controller do
 
       it "is redirect_to show page" do
         post :create, params: params
-        expect(response).redirect_to user
+        expect(response).to redirect_to user
       end
     end
 
@@ -68,7 +69,7 @@ RSpec.describe Post::RepostController, type: :controller do
 
       it "render new page" do
         post :create, params: params
-        expect(response).render_template 'new'
+        expect(response).to render_template 'new'
       end
     end
   end

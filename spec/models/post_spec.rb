@@ -76,14 +76,30 @@ RSpec.describe Post, type: :model do
   end
 
   describe "instance method" do
-    let(:post2) {
-      post1.tap do |p|
-        p.content = 'a' * 140
-        p.save
+    context 'when text_slice' do
+      let(:post2) {
+        post1.tap do |p|
+          p.content = 'a' * 140
+          p.save
+        end
+      }
+      it 'is cut the numbers of characters' do
+        expect(post2.text_slice).to eq 'a' * 20 + '...'
       end
-    }
-    it 'text_slice' do
-      expect(post2.text_slice).to eq 'a' * 20 + '...'
+    end
+
+    context 'when parendt?' do
+      let(:child_post) {
+        FactoryBot.create(:child_post)
+      }
+
+      it 'returns true' do
+        expect(post.parent?).to be true
+      end
+
+      it 'returns false' do
+        expect(child_post.parent?).to be false
+      end
     end
   end
 end
