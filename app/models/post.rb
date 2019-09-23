@@ -1,9 +1,13 @@
 class Post < ApplicationRecord
   belongs_to :user
+  has_many :child_post, class_name: :Post, foreign_key: :parent_id, dependent: :destroy
+  belongs_to :parent_post, class_name: :Post, foreign_key: :parent_id, optional: true
   has_many :comments, dependent: :destroy
   has_many :book_marks, dependent: :destroy
   has_many :book_marked_users, through: :book_marks, source: :user
+
   default_scope -> { order(created_at: :desc) }
+
   validates :content, presence: true, length: { maximum: 140 }
   validates :user_id, presence: true
   validates :image, presence: true

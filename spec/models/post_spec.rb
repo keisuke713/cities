@@ -60,8 +60,17 @@ RSpec.describe Post, type: :model do
       let!(:book_mark) {
         FactoryBot.create(:book_mark)
       }
-      it "is deleted related bookmark when post is related" do
+      it "is deleted related bookmark when post is delated" do
         expect{ book_mark.post.destroy }.to change{ BookMark.count }.by(-1)
+      end
+    end
+
+    context 'when parent_post has child_post' do
+      let!(:child_post) {
+        FactoryBot.create(:child_post)
+      }
+      it "is deleted child_post when parent_post is deleted" do
+        expect{ child_post.parent_post.destroy }.to change{ Post.count }.by(-2)
       end
     end
   end
