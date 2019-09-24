@@ -88,17 +88,17 @@ RSpec.describe Post, type: :model do
       end
     end
 
-    context 'when parendt?' do
+    context 'when is_parendt?' do
       let(:child_post) {
         FactoryBot.create(:child_post)
       }
 
       it 'returns true' do
-        expect(post.parent?).to be true
+        expect(post.is_parent?).to be true
       end
 
       it 'returns false' do
-        expect(child_post.parent?).to be false
+        expect(child_post.is_parent?).to be false
       end
     end
   end
