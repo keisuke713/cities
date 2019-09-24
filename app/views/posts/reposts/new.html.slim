@@ -2,7 +2,8 @@
 .container
   h1
     | 元の投稿
-  = render 'shared/post', post: @parent_post
+  .posts
+    = render 'shared/post', post: @parent_post
   h1
     | Repost
     .row
