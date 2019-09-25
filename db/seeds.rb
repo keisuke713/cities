@@ -21,3 +21,8 @@ User.create!(
     intro: :Hi
   )
 end
+
+Relationship.create!(
+  follower_id: 1,
+  followed_id: 2
+)

@@ -1,20 +1,15 @@
 = provide(:title, :Post)
 .container
   .row
-    .content
-      = render 'shared/error_messages', object: @post
-      p
-        | 投稿者
-        = link_to @post.user.name, @post.user
-      = image @post
-      p = @post.content
-      p = l @post.created_at
-      p.contact = link_to 'コメントする', new_post_comment_url(@post.id)
-      - if @book_mark_id.nil?
-        p.contact = link_to 'ブックマークする', post_book_marks_url(@post.id), method: :post
-      - else
-        p.contact = link_to 'ブックマークを取り消す', post_book_mark_url(@post.id, @book_mark_id), method: :delete
-
+    -if @post.parent?
+      .content
+        = render 'shared/post_detail', post: @post
+        = render 'shared/reaction_to_post', post: @post
+    -else
+      .repost-content
+        = render 'shared/post_detail', post: @post
+        = render 'shared/post', post: @post.parent_post
+        = render 'shared/reaction_to_post', post: @post
 
     - if @comments.empty?
       h3 コメントはありません

@@ -1,0 +1,20 @@
+= provide(:title, 'Repost')
+.container
+  h1
+    | 元の投稿
+  .posts
+    = render 'shared/post', post: @parent_post
+  h1
+    | Repost
+    .row
+      .col-md-6
+        = render 'shared/error_messages', object: @post
+        = form_for @post, url: post_reposts_path(@parent_post.id) do |f|
+          .form
+            = f.label :本文
+            = f.text_area :content, size: "40*100", value: "テキストを入力..."
+          .form
+            = f.label :画像をアップロード
+            = f.file_field :image
+          .form
+            = f.submit 'repost', class: "btn"
