@@ -2,4 +2,5 @@
 .container
   h2
     | TimeLine
-  = render partial: 'shared/post', collection: @posts
+  .posts
+    = render partial: 'shared/post', collection: @posts
