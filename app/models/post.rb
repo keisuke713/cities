@@ -22,7 +22,7 @@ class Post < ApplicationRecord
     content.length > 50 ? "#{content.slice(0..19)}..." : content
   end
 
-  def is_parent?
+  def parent?
     parent_id.nil?
   end
 end

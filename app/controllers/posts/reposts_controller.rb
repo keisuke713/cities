@@ -1,11 +1,11 @@
 class Posts::RepostsController < ApplicationController
+  before_action :find_parent_post
+
   def new
-    @parent_post = Post.find(params[:post_id])
     @post = Post.new
   end
 
   def create
-    @parent_post = Post.find(params[:post_id])
     @post = current_user.posts.build(repost_params).tap do |post|
       post.parent_post = @parent_post
     end
@@ -19,6 +19,10 @@ class Posts::RepostsController < ApplicationController
   end
 
   private
+
+  def find_parent_post
+    @parent_post = Post.find(params[:post_id])
+  end
 
   def repost_params
     params.require(:post).permit(:content, :image)

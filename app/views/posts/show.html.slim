@@ -1,7 +1,7 @@
 = provide(:title, :Post)
 .container
   .row
-    -if @post.is_parent?
+    -if @post.parent?
       .content
         = render 'shared/post_detail', post: @post
         = render 'shared/reaction_to_post', post: @post
