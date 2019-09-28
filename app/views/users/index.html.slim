@@ -1,6 +1,17 @@
 = provide(:title, 'All Users')
 .container
+  = form_with url: search_users_path, method: :get, local: true do |f|
+    = f.label :ユーザー名
+    = f.text_field :name, size: "40*10", value: :検索したユーザー名を入力してみよう
+    = f.label :前方一致
+    = f.radio_button :search_method, :forward_match, checked: true
+    = f.label :後方一致
+    = f.radio_button :search_method, :backward_match
+    = f.label :完全一致
+    = f.radio_button :search_method, :perfect_match
+    = f.label :対象外
+    = f.radio_button :search_method, :exclude
+    = f.submit 'search', class: :btn, name:nil
   h1
     | All Users
   = render partial: 'shared/user', collection: @users
-  = will_paginate
