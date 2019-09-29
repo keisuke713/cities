@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   end
 
   resources :search_users, only: :index, module: :users
+  resources :search_posts, only: :index, module: :posts
 end

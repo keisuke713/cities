@@ -1,5 +1,13 @@
 = provide(:title, 'All posts')
 .container
+  = form_with url: search_posts_path, method: :get, local: true do |f|
+    = f.label :キーワード
+    = f.text_field :keyword, size: "40*10", value: :検索したいキーワードを入力してください
+    = f.label :ユーザー名で絞り込む
+    = f.radio_button :search_method, :user_match
+    = f.label :投稿で絞り込む
+    = f.radio_button :search_method, :content_match, checked: true
+    = f.submit 'search', class: :btn, name:nil
   h2
     | TimeLine
   .posts

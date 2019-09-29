@@ -18,23 +18,66 @@ RSpec.describe Posts::SearchPostsController, type: :controller do
       FactoryBot.create(:child_post)
     }
 
-    let!(:params) {
-      { content: :aaa }
+    let!(:post3) {
+      FactoryBot.create(:post_by_Cob)
     }
 
-    it 'returns http success' do
-      get :index, params: params
-      expect(:response).to eq 200
+    let!(:post4) {
+      FactoryBot.create(:child_post_by_Cob)
+    }
+
+    context 'search_post_by_Bob' do
+      let!(:params) {
+        { keyword: :Bob, seach_method: :user_match}
+      }
+
+      it 'returns http success' do
+        get :index, params: params
+        expect(response.status).to eq 200
+      end
+
+      it 'assigns posts' do
+        get :index, params: params
+        expect(assigns(:posts)).to contain_exactly post, post2
+      end
+
+      it 'render posts/index' do
+        get :index, params: params
+        expect(:response).to render_template 'posts/index'
+      end
     end
 
-    it 'assigns posts' do
-      get :index, params: params
-      expect(assigns(:posts)).to contain_exactly post
+    context 'search_post_by_Cob' do
+      let!(:params) {
+        { keyword: :Cob, seach_method: :user_match }
+      }
+
+      it 'assigns posts' do
+        get :index, params: params
+        expect(assigns(:posts)).to contain_exactly post3, post4
+      end
     end
 
-    it 'render posts/index' do
-      get :index, params: params
-      expect(:response).to render_template 'posts/index'
+    context 'search_post_included_aaa' do
+      let!(:params) {
+        { keyword: :aaa, seach_method: :content_match }
+      }
+
+      it 'assigns posts' do
+        get :index, params: params
+        expect(assigns(:posts)).to contain_exactly post, post3
+      end
+    end
+
+    context 'search_post_included_child' do
+      let!(:params) {
+        { keyword: :child, seach_method: :content_match}
+      }
+
+      it 'assigns posts' do
+        get :index, params: params
+        expect(assigns(:posts)).to contain_exactly post2, post4
+      end
     end
   end
 end
