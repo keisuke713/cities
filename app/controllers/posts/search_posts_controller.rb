@@ -5,10 +5,10 @@ class Posts::SearchPostsController < ApplicationController
         Post.all
       else
         if params[:search_method] == 'user_match'
-          user_ids = User.where('name = ?', params[:keyword]).pluck(:id)
-          Post.where("user_id = ?", user_ids)
+          user_ids = User.match(params[:keyword]).pluck(:id)
+          Post.user_match(user_ids).includes(:user)
         else
-          Post.where("content like ?", "%#{params[:keyword]}%")
+          Post.content_match("%#{params[:keyword]}%").includes(:user)
         end
       end
     render 'posts/index'
