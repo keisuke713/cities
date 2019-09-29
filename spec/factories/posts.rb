@@ -3,6 +3,7 @@ FactoryBot.define do
     content 'a' * 140
     image { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/tokyo.jpg'), 'image/jpg') }
     user
+    initialize_with { Post.find_or_create_by(content: content, user: user)}
   end
 
   factory :child_post, class: Post do

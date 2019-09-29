@@ -28,7 +28,7 @@ RSpec.describe Posts::SearchPostsController, type: :controller do
 
     context 'search_post_by_Bob' do
       let!(:params) {
-        { keyword: :Bob, seach_method: :user_match}
+        { keyword: :Bob, search_method: :user_match}
       }
 
       it 'returns http success' do
@@ -49,7 +49,7 @@ RSpec.describe Posts::SearchPostsController, type: :controller do
 
     context 'search_post_by_Cob' do
       let!(:params) {
-        { keyword: :Cob, seach_method: :user_match }
+        { keyword: :Cob, search_method: :user_match }
       }
 
       it 'assigns posts' do
@@ -60,7 +60,7 @@ RSpec.describe Posts::SearchPostsController, type: :controller do
 
     context 'search_post_included_aaa' do
       let!(:params) {
-        { keyword: :aaa, seach_method: :content_match }
+        { keyword: :aaa, search_method: :content_match }
       }
 
       it 'assigns posts' do
@@ -71,7 +71,7 @@ RSpec.describe Posts::SearchPostsController, type: :controller do
 
     context 'search_post_included_child' do
       let!(:params) {
-        { keyword: :child, seach_method: :content_match}
+        { keyword: :child, search_method: :content_match}
       }
 
       it 'assigns posts' do
