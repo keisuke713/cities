@@ -2,7 +2,7 @@
 .container
   = form_with url: search_users_path, method: :get, local: true do |f|
     = f.label :ユーザー名
-    = f.text_field :name, size: "40*10", value: :検索したユーザー名を入力してみよう
+    = f.text_field :name, size: "40*10", value: :検索したいユーザー名を入力してみよう
     = f.label :前方一致
     = f.radio_button :search_method, :forward_match, checked: true
     = f.label :後方一致
