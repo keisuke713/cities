@@ -7,6 +7,8 @@ class Search
       "%#{keyword}"
     when 'perfect_match'
       keyword
+    when 'content_match'
+      "%#{keyword}%"
     end
   end
 end

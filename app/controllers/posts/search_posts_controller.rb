@@ -8,7 +8,8 @@ class Posts::SearchPostsController < ApplicationController
           user_ids = User.match(params[:keyword]).pluck(:id)
           Post.user_match(user_ids).includes(:user)
         else
-          Post.content_match("%#{params[:keyword]}%").includes(:user)
+          keyword = Search.condition(params[:search_method], params[:keyword])
+          Post.content_match(keyword).includes(:user)
         end
       end
     render 'posts/index'
