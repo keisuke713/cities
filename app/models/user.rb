@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   scope :in_ids, -> (_ids){ where(id: _ids) }
   scope :match, ->(name){ where("name like ?", name)}
-  scope :exclude, ->(name){ where.not("name = ?", name)}
+  scope :exclude, ->(name){ where.not("name like ?", name)}
 
   mount_uploader :image, ImageUploader
   include SessionsHelper

@@ -5,8 +5,8 @@ class Users::SearchUsersController < ApplicationController
         User.all
       else
         unless params[:search_method] === 'exclude'
-          params_name = Search.condition(params[:search_method], params[:name])
-          User.match(params_name)
+          search_condition = Search.condition(params[:search_method], params[:name])
+          User.match(search_condition)
         else
           User.exclude(params[:name])
         end
