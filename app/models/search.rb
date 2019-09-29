@@ -1,12 +1,12 @@
 class Search
-  def self.condition(search_method, name)
+  def self.condition(search_method, keyword)
     case search_method
     when 'forward_match'
-      "#{name}%"
+      "#{keyword}%"
     when 'backward_match'
-      "%#{name}"
+      "%#{keyword}"
     when 'perfect_match'
-      name
+      keyword
     end
   end
 end
