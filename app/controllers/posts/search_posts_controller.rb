@@ -1,4 +1,7 @@
 class Posts::SearchPostsController < ApplicationController
+
+  include SearchKeywordConvertable
+
   def index
     @posts = fetch_posts(params[:keyword], params[:search_method])
     render 'posts/index'
@@ -32,7 +35,7 @@ class Posts::SearchPostsController < ApplicationController
   end
 
   def fetch_posts_by_content(keyword, search_method)
-    keyword = Search.condition(search_method, keyword)
+    keyword = convert_keyword(search_method, keyword)
     Post.match_by_content(keyword).includes(:user)
   end
 end

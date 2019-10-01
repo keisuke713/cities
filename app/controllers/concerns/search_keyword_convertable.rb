@@ -1,5 +1,7 @@
-class Search
-  def self.condition(search_method, keyword)
+module SearchKeywordConvertable
+  extend ActiveSupport::Concern
+
+  def convert_keyword(search_method, keyword)
     case search_method
     when 'forward_match'
       "#{keyword}%"
@@ -9,6 +11,7 @@ class Search
       keyword
     when 'content_match'
       "%#{keyword}%"
+    else
     end
   end
 end

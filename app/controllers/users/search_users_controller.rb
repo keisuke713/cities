@@ -1,4 +1,7 @@
 class Users::SearchUsersController < ApplicationController
+
+  include SearchKeywordConvertable
+
   def index
     @users = fetch_users(params[:search_method], params[:name])
     render 'users/index'
@@ -27,8 +30,8 @@ class Users::SearchUsersController < ApplicationController
   end
 
   def fetch_users_by_user_name(search_method, name)
-    search_condition = Search.condition(search_method, name)
-    User.match(search_condition)
+    keyword = convert_keyword(search_method, name)
+    User.match(keyword)
   end
 
   def fetch_users_by_excluding(name)
