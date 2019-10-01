@@ -7,8 +7,8 @@ class Post < ApplicationRecord
   has_many :book_marked_users, through: :book_marks, source: :user
 
   default_scope -> { order(created_at: :desc) }
-  scope :user_match, ->(user_ids){ where("user_id in (?)", user_ids)}
-  scope :content_match, ->(keyword){ where("content like ?", keyword)}
+  scope :match_by_user, ->(user_ids){ where(user_id: user_ids)}
+  scope :match_by_content, ->(keyword){ where("content like ?", keyword)}
 
   validates :content, presence: true, length: { maximum: 140 }
   validates :user_id, presence: true

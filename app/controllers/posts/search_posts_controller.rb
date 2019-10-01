@@ -28,11 +28,11 @@ class Posts::SearchPostsController < ApplicationController
 
   def fetch_posts_by_user_name(keyword)
     user_ids = User.match(keyword).pluck(:id)
-    Post.user_match(user_ids).includes(:user)
+    Post.match_by_user(user_ids).includes(:user)
   end
 
   def fetch_posts_by_content(keyword, search_method)
     keyword = Search.condition(search_method, keyword)
-    Post.content_match(keyword).includes(:user)
+    Post.match_by_content(keyword).includes(:user)
   end
 end
