@@ -31,10 +31,10 @@ class Users::SearchUsersController < ApplicationController
 
   def fetch_users_by_user_name(search_method, name)
     keyword = convert_keyword(search_method, name)
-    User.match(keyword)
+    User.match_by_name(keyword)
   end
 
   def fetch_users_by_excluding(name)
-    User.exclude(name)
+    User.exclude_name(name)
   end
 end
