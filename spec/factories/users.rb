@@ -15,4 +15,20 @@ FactoryBot.define do
     password 'Testtesttest'
     initialize_with { User.find_or_create_by(email: email)}
   end
+
+  factory :user2, class: User do
+    name 'Cob'
+    email 'test2@gmail.com'
+    intro 'rubyなう'
+    password 'Testtesttest'
+    initialize_with { User.find_or_create_by(email: email)}
+  end
+
+  factory :user3, class: User do
+    name 'Boc'
+    email 'test3@gmail.com'
+    intro 'rubyなう'
+    password 'Testtesttest'
+    initialize_with { User.find_or_create_by(email: email)}
+  end
 end
