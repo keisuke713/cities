@@ -30,7 +30,7 @@ class Posts::SearchPostsController < ApplicationController
   end
 
   def fetch_posts_by_user_name(keyword)
-    user_ids = User.match(keyword).pluck(:id)
+    user_ids = User.match_by_name(keyword).pluck(:id)
     Post.match_by_user(user_ids).includes(:user)
   end
 
