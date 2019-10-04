@@ -9,7 +9,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-
+    binding.pry
     if @post.save
       flash[:success] = 'succeed in posting'
       redirect_to current_user
@@ -27,6 +27,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :image)
+    params.require(:post).permit(:content, :image, :draft_status)
   end
 end

@@ -95,7 +95,7 @@ RSpec.describe PostsController, type: :controller do
         FactoryBot.attributes_for(:draft)
       }
       let(:draft_params) {
-        { user_id: user.id, post: draft_attributes, draft_status: 1 }
+        { user_id: user.id, post: draft_attributes }
       }
       it "draft_status = 1" do
         post :create, params: draft_params

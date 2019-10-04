@@ -12,5 +12,11 @@
           .form
             = f.label "画像をアップロード"
             = f.file_field :image
+          .draft
+            = f.label :下書きとして保存する
+            = f.radio_button :draft_status, 1
+          .draft
+            = f.label :タイムラインに投稿する
+            = f.radio_button :draft_status, 0, checked: true
           .form
             = f.submit 'post', class: "btn"
