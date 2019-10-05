@@ -14,9 +14,10 @@ Rails.application.routes.draw do
     resources :followings, only: :index, module: :users
     resources :followers, only: :index, module: :users
     resources :messages, only: [:index, :create, :show]
+    resources :drafts, only: :index, module: :posts
   end
 
-  resources :posts, only: :show do
+  resources :posts, only: [:show, :edit, :update] do
     resources :comments, only: [:new, :create]
     resources :book_marks, only: [:create, :destroy]
     resources :reposts, only: [:new, :create], module: :posts

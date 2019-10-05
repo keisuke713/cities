@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.find_posts(current_user.followings.ids).exclude_draft
+    @posts = Post.find_posts(current_user.followings.ids).fetch_expect_draft
   end
 
   def new

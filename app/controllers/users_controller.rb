@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def show
     @user = user
-    @posts = @user.posts.exclude_draft
+    @posts = @user.posts.fetch_expect_draft
     @relationship_id = Relationship.find_by_id(current_user.id, @user.id)
   end
 
