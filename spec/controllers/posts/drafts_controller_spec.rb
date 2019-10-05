@@ -33,4 +33,27 @@ RSpec.describe Posts::DraftsController, type: :controller do
       expect(response).to render_template 'index'
     end
   end
+
+  describe "GET #edit" do
+    let!(:draft) {
+      FactoryBot.create(:draft)
+    }
+    let(:params) {
+      { id: draft.id }
+    }
+    it "returns http success" do
+      get :edit, params: params
+      expect(response.status).to eq 200
+    end
+
+    it "assign draft" do
+      get :edit, params: params
+      expect(assigns(:draft)).to eq draft
+    end
+
+    it "render edit page" do
+      get :edit, params: params
+      expect(response).to render_template 'edit'
+    end
+  end
 end

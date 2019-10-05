@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :drafts, only: :index, module: :posts
   end
 
-  resources :posts, only: [:show, :edit, :update] do
+  resources :posts, only: :show do
     resources :comments, only: [:new, :create]
     resources :book_marks, only: [:create, :destroy]
     resources :reposts, only: [:new, :create], module: :posts
@@ -29,4 +29,5 @@ Rails.application.routes.draw do
 
   resources :search_users, only: :index, module: :users
   resources :search_posts, only: :index, module: :posts
+  resources :drafts, only: [:edit, :update], module: :posts
 end

@@ -5,18 +5,4 @@
     .row
       .col-md-6
         = render 'shared/error_messages', object: @post
-        = form_for @post, url: user_posts_path(current_user.id) do |f|
-          .form
-            = f.label :本文
-            = f.text_area :content, size: "40*100"
-          .form
-            = f.label "画像をアップロード"
-            = f.file_field :image
-          .draft
-            = f.label :下書きとして保存する
-            = f.radio_button :draft_status, 1
-          .draft
-            = f.label :タイムラインに投稿する
-            = f.radio_button :draft_status, 0, checked: true
-          .form
-            = f.submit 'post', class: "btn"
+        = render 'shared/post_form', model: @post, url: user_posts_path(current_user.id)

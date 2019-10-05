@@ -1,0 +1,8 @@
+= provide(:title, 'Edit Draft')
+.container
+  h1
+    | Edit Draft
+    .row
+      .col-md-6
+        = render 'shared/error_messages', object: @draft
+        = render 'shared/post_form', model: @draft, url: draft_path(@draft.id)
