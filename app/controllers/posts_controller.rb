@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.find_posts(current_user.followings.ids)
+    @posts = Post.find_posts(current_user.followings.ids).exclude_draft
   end
 
   def new
@@ -9,7 +9,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    binding.pry
+
     if @post.save
       flash[:success] = 'succeed in posting'
       redirect_to current_user

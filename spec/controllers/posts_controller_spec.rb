@@ -10,8 +10,11 @@ RSpec.describe PostsController, type: :controller do
   end
 
   describe "GET #index" do
-    let(:post) {
+    let!(:post) {
       FactoryBot.create(:post)
+    }
+    let!(:draft) {
+      FactoryBot.create(:draft)
     }
     before do
       user.active_relationships.create(followed_id: post.user.id)
@@ -24,9 +27,9 @@ RSpec.describe PostsController, type: :controller do
       expect(response.status).to eq 200
     end
 
-    it "assign all posts" do
+    it "assign all posts expect draft" do
       get :index, params: user_params
-      expect(assigns(:posts)).to include post
+      expect(assigns(:posts)).to contain_exactly post
     end
 
     it "render index page" do

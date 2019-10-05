@@ -88,9 +88,16 @@ RSpec.describe UsersController, type: :controller do
     before do
       log_in user
     end
+    let!(:post) {
+      FactoryBot.create(:post)
+    }
+    let!(:draft) {
+      FactoryBot.create(:draft)
+    }
     let(:user_params) {
       { id: user.id }
     }
+
     it "returns http success" do
       get :show, params: user_params
       expect(response).to be_successful
@@ -99,6 +106,11 @@ RSpec.describe UsersController, type: :controller do
     it "assigned the user" do
       get :show, params: user_params
       expect(assigns(:user)).to eq user
+    end
+
+    it "assigned posts by user" do
+      get :show, params: user_params
+      expect(assigns(:posts)).to contain_exactly post
     end
 
     it "returns a 200 response" do
