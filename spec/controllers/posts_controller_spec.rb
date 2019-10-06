@@ -92,19 +92,6 @@ RSpec.describe PostsController, type: :controller do
         expect(response).to render_template 'new'
       end
     end
-
-    context "save as draft" do
-      let(:draft_attributes) {
-        FactoryBot.attributes_for(:draft)
-      }
-      let(:draft_params) {
-        { user_id: user.id, post: draft_attributes }
-      }
-      it "draft_status = 1" do
-        post :create, params: draft_params
-        expect(controller.instance_variable_get("@post").draft_status).to eq 1
-      end
-    end
   end
 
   describe "GET #show" do
