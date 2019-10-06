@@ -56,4 +56,58 @@ RSpec.describe Posts::DraftsController, type: :controller do
       expect(response).to render_template 'edit'
     end
   end
+
+  describe "PATCH #update" do
+    let!(:draft) {
+      FactoryBot.create(:draft)
+    }
+    context 'when post timeline' do
+      before do
+        draft.draft_status = 0
+      end
+      let(:params) {
+        { post: draft, id: draft.id}
+      }
+      it "can be edited draft_status" do
+        patch :update, params: params
+        expect(controller.instance_variable_get("@draft").draft_status).to eq 0
+      end
+
+      it "redirect user page" do
+        patch :update, params: params
+        expect(response).to redirect_to draft.user
+      end
+    end
+
+    context 'when save as post' do
+      before do
+        draft.content == 'update as draft'
+      end
+      let(:params) {
+        { post: draft, id: draft.id }
+      }
+      it "can be edited content" do
+        patch :update, params: params
+        expect(controller.instance_variable_get("@draft").content).to eq 'update as draft'
+      end
+    end
+
+    context "parameter isn't reasonbale" do
+      before do
+        draft.content = nil
+      end
+      let(:params) {
+        { post: draft, id: draft.id }
+      }
+      it "isn't update" do
+        patch :update, params: params
+        expect(controller.instance_variable_get("@draft").content).to eq 'a' * 140
+      end
+
+      it "render edit" do
+        patch :update, params: params
+        expect(response).to render_template 'edit'
+      end
+    end
+  end
 end
