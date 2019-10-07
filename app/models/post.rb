@@ -11,8 +11,7 @@ class Post < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   scope :match_by_user, ->(user_ids){ where(user_id: user_ids)}
   scope :match_by_content, ->(keyword){ where("content like ?", keyword)}
-  scope :fetch_expect_draft, ->{ where(status: 0)}
-  scope :fetch_only_draft, ->(user_id){ where(user_id: user_id, status: 1)}
+  scope :fetch_only_draft, ->(user_id){ where(user_id: user_id).draft}
 
   validates :content, presence: true, length: { maximum: 140 }
   validates :user_id, presence: true
