@@ -66,14 +66,14 @@ RSpec.describe Posts::DraftsController, type: :controller do
     }
     context 'when post timeline' do
       before do
-        draft_attributes[:status] = 0
+        draft_attributes[:status] = :published
       end
       let(:params) {
         { post: draft_attributes, id: draft.id}
       }
       it "can be edited status" do
         patch :update, params: params
-        expect(draft.reload.status).to eq 0
+        expect(draft.reload.status).to eq 'published'
       end
 
       it "redirect user page" do

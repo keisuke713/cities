@@ -7,9 +7,9 @@
     = f.file_field :image
   .draft
     = f.label :下書きのまま更新する
-    = f.radio_button :status, 1
+    = f.radio_button :status, :draft
   .draft
     = f.label :更新してタイムラインに投稿する
-    = f.radio_button :status, 0, checked: true
+    = f.radio_button :status, :published, checked: true
   .form
     = f.submit 'post', class: "btn"
