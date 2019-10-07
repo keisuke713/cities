@@ -9,7 +9,7 @@ class Posts::DraftsController < ApplicationController
 
   def update
     @draft = Post.find(params[:id])
-    
+
     if @draft.update_attributes(draft_params)
       redirect_to @draft.user
     else
@@ -20,6 +20,6 @@ class Posts::DraftsController < ApplicationController
   private
 
   def draft_params
-    params.require(:post).permit(:content, :image, :draft_status)
+    params.require(:post).permit(:content, :image, :status)
   end
 end

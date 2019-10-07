@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_232032) do
+ActiveRecord::Schema.define(version: 2019_10_07_210922) do
 
   create_table "book_marks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_232032) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_id"
-    t.integer "draft_status", default: 0
+    t.integer "status", default: 0
     t.index ["parent_id"], name: "index_posts_on_parent_id"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_posts_on_user_id"

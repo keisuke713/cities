@@ -9,7 +9,7 @@
     .row
       .col-md-6
         = render 'shared/error_messages', object: @post
-        = form_for @post, url: post_reposts_path(@parent_post.id) do |f|
+        = form_with model: @post, url: post_reposts_path(@parent_post.id), local: true do |f|
           .form
             = f.label :本文
             = f.text_area :content, size: "40*100", value: "テキストを入力..."
