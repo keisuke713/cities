@@ -12,7 +12,7 @@ RSpec.describe Posts::DraftsController, type: :controller do
     let!(:post) {
       FactoryBot.create(:post)
     }
-    let!(:draft) {
+    let(:draft) {
       FactoryBot.create(:draft)
     }
     let(:params) {
@@ -35,7 +35,7 @@ RSpec.describe Posts::DraftsController, type: :controller do
   end
 
   describe "GET #edit" do
-    let!(:draft) {
+    let(:draft) {
       FactoryBot.create(:draft)
     }
     let(:params) {
@@ -58,7 +58,7 @@ RSpec.describe Posts::DraftsController, type: :controller do
   end
 
   describe "PATCH #update" do
-    let!(:draft) {
+    let(:draft) {
       FactoryBot.create(:draft)
     }
     let!(:draft_attributes) {
