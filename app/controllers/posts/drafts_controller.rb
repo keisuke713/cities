@@ -1,15 +1,14 @@
 class Posts::DraftsController < ApplicationController
+  before_action :fetch_draft, only: [:edit, :update]
+
   def index
-    @drafts = Post.fetch_only_draft(params[:user_id])
+    @drafts = Post.match_by_user(params[:user_id]).draft
   end
 
   def edit
-    @draft = Post.find(params[:id])
   end
 
   def update
-    @draft = Post.find(params[:id])
-
     if @draft.update_attributes(draft_params)
       redirect_to @draft.user
     else
@@ -21,5 +20,9 @@ class Posts::DraftsController < ApplicationController
 
   def draft_params
     params.require(:post).permit(:content, :image, :status)
+  end
+
+  def fetch_draft
+    @draft = Post.find(params[:id])
   end
 end
