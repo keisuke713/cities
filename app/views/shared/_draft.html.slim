@@ -1,0 +1,7 @@
+.post
+  .post-content
+    = image draft
+  .post-content
+    p.break = shorted_text draft
+    p = l draft.created_at
+    = link_to '編集する', edit_draft_path(draft.id)

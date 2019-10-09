@@ -1,0 +1,6 @@
+= provide(:title, 'All Drafts')
+.container
+  h2
+    | All Drafts
+  .posts
+    = render partial: 'shared/draft', collection: @drafts

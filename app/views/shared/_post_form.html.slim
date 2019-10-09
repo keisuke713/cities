@@ -1,0 +1,15 @@
+= form_with model: model, url: url, local: true do |f|
+  .form
+    = f.label :本文
+    = f.text_area :content, size: "40*100", value: model.content
+  .form
+    = f.label "画像をアップロード"
+    = f.file_field :image
+  .draft
+    = f.label :下書きとして保存する
+    = f.radio_button :status, :draft
+  .draft
+    = f.label :タイムラインに投稿する
+    = f.radio_button :status, :published, checked: true
+  .form
+    = f.submit 'post', class: "btn"

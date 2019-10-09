@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :followings, only: :index, module: :users
     resources :followers, only: :index, module: :users
     resources :messages, only: [:index, :create, :show]
+    resources :drafts, only: :index, module: :posts
   end
 
   resources :posts, only: :show do
@@ -28,4 +29,5 @@ Rails.application.routes.draw do
 
   resources :search_users, only: :index, module: :users
   resources :search_posts, only: :index, module: :posts
+  resources :drafts, only: [:edit, :update], module: :posts
 end

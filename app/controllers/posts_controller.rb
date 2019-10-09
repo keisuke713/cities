@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.find_posts(current_user.followings.ids)
+    @posts = Post.find_posts(current_user.followings.ids).published
   end
 
   def new
@@ -27,6 +27,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :image)
+    params.require(:post).permit(:content, :image, :status)
   end
 end
