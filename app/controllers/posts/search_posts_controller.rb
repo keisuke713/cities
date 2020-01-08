@@ -18,7 +18,7 @@ class Posts::SearchPostsController < ApplicationController
   end
 
   def fetch_all_posts
-    Post.all.includes(:user)
+    Post.all.includes(:user).published
   end
 
   def fetch_postss_by(keyword, search_method)
@@ -31,11 +31,11 @@ class Posts::SearchPostsController < ApplicationController
 
   def fetch_posts_by_user_name(keyword)
     user_ids = User.match_by_name(keyword).pluck(:id)
-    Post.match_by_user(user_ids).includes(:user)
+    Post.match_by_user(user_ids).includes(:user).published
   end
 
   def fetch_posts_by_content(keyword, search_method)
     keyword = convert_keyword(search_method, keyword)
-    Post.match_by_content(keyword).includes(:user)
+    Post.match_by_content(keyword).includes(:user).published
   end
 end
