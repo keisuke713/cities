@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.find_posts(current_user.followings.ids).published
+    @posts = Post.find_posts(current_user.followings.ids.push current_user.id).published
   end
 
   def new
